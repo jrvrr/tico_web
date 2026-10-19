@@ -1,6 +1,8 @@
 # Tico Web
 
 Proyecto base creado con Next.js, App Router y TypeScript.
+Incluye React, Tailwind CSS y daisyUI.
+La página incluye una portada con navegación y una sección de alianzas con formulario de validación local. El envío aún no está conectado a un servicio.
 
 ## Desarrollo
 
