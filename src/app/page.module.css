@@ -46,8 +46,8 @@
 
 .introPanel {
   position: relative;
-  height: 440px;
-  margin: 0;
+  height: 600px;
+  margin-top: 64px;
   overflow: hidden;
   background: var(--cream);
 }
@@ -62,51 +62,14 @@
 }
 
 .introPanel::before {
-  top: 20px;
-  height: 170px;
+  top: 27px;
+  bottom: 0;
 }
 
 .introPanel::after {
-  top: 0;
-  height: 20px;
-  background: radial-gradient(circle at 50% 100%, var(--green) 19px, transparent 20px) 0 0 / 38px 20px repeat-x;
-}
-
-.introPaper {
-  position: absolute;
-  z-index: 1;
-  top: 190px;
-  right: 10px;
-  left: 10px;
-  height: 210px;
-  overflow: hidden;
-  background: transparent;
-}
-
-.introPaper::before {
-  position: absolute;
-  top: 0;
-  right: 0;
-  left: 0;
-  height: 210px;
-  background: radial-gradient(circle at 50% 0, var(--green) 0 210px, transparent 211px);
-  content: "";
-}
-
-.introPaper {
-  display: grid;
-  place-items: center;
-}
-
-.enterButton {
-  position: relative;
-  z-index: 1;
-  margin-top: 105px;
-  border: 0;
-  background: transparent;
-  color: #fff;
-  cursor: pointer;
-  font: 400 8px/1 Arial, sans-serif;
+  top: -2px;
+  height: 30px;
+  background: radial-gradient(circle at 50% 100%, var(--green) 28px, transparent 29px) 0 0 / 56px 30px repeat-x;
 }
 
 .bottomScallop {
@@ -115,27 +78,59 @@
   bottom: -1px;
   left: 10px;
   z-index: 2;
-  height: 20px;
-  background: radial-gradient(circle at 50% 0, var(--green) 19px, transparent 20px) 0 0 / 38px 20px repeat-x;
+  height: 30px;
+  background: radial-gradient(circle at 50% 0, var(--green) 28px, transparent 29px) 0 0 / 56px 30px repeat-x;
 }
 
-.project { padding: 55px 40px 80px; background: var(--cream); }
-.project h2 { margin: 0; color: var(--blue); font-size: clamp(2.1rem, 5vw, 3.8rem); letter-spacing: .05em; text-align: center; }
-.content { display: flex; max-width: 800px; align-items: center; justify-content: center; gap: clamp(45px, 8vw, 110px); margin: 45px auto 0; }
+.project { padding: 8px 0 24px; background: var(--cream); }
+.project h2 { margin: 0; color: var(--blue); font-size: 18px; letter-spacing: .04em; line-height: 1.25; text-align: center; }
+.content { display: flex; width: 264px; align-items: center; gap: 24px; margin: 10px auto 0; }
 
-.flower { display: flex; width: 296px; height: 296px; flex: none; flex-direction: column; justify-content: center; gap: 22px; padding: 44px; background: var(--green); color: #fff; font-size: 15px; font-weight: 700; line-height: 1.5; text-align: center; }
-.flower p { margin: 0; }
+.flower { position: relative; display: flex; width: 120px; height: 120px; flex: none; flex-direction: column; justify-content: center; gap: 12px; padding: 19px; color: #fff; font-size: 5px; font-weight: 700; line-height: 1.5; text-align: center; }
+.flowerShape { position: absolute; inset: 0; width: 100%; height: 100%; fill: #5c93c9; }
+.flower p { position: relative; margin: 0; }
 
-.form { display: flex; width: min(100%, 340px); flex-direction: column; padding: 20px; background: repeating-linear-gradient(to bottom, #fff 0 22px, #73c7d6 23px 24px); color: #282828; font-weight: 700; }
-.form h3 { margin: 0 0 13px; font-size: 21px; text-align: center; }
-.form label { margin-top: 7px; font-size: 14px; }
-.form input, .form textarea { width: 100%; border: 2px solid #73c7d6; background: rgb(255 255 255 / 92%); font: inherit; }
-.form button { width: 120px; min-height: 30px; margin: 18px auto 0; border: 0; border-radius: 999px; background: var(--blue); color: #fff; cursor: pointer; font: 700 15px/1 Arial, sans-serif; }
+.form { position: relative; display: flex; width: 120px; height: 120px; flex: none; flex-direction: column; padding: 4px 18px 4px 5px; background-image: linear-gradient(to right, transparent calc(100% - 10px), #73c7d6 calc(100% - 10px), #73c7d6 calc(100% - 9px), transparent calc(100% - 9px)), repeating-linear-gradient(to bottom, #fff 0 7px, #73c7d6 8px 9px); color: #282828; font-weight: 700; }
+.form h3 { margin: 0 0 4px; font-size: 6px; line-height: 7px; text-align: center; }
+.form label { margin-top: 2px; font-size: 4px; line-height: 5px; }
+.form input, .form textarea { width: 100%; min-height: 7px; padding: 0 1px; border: 1px solid #73c7d6; border-radius: 0; background: rgb(255 255 255 / 92%); font: inherit; }
+.form textarea { height: 11px; resize: none; }
+.form button { width: 42px; min-height: 8px; margin: 4px auto 0; padding: 0; border: 0; border-radius: 999px; background: var(--blue); color: #fff; cursor: pointer; font: 700 5px/1 Arial, sans-serif; }
 .form button:hover { background: #2c5f9e; }
-.status { margin: 12px 0 0; color: var(--blue); font-size: 13px; text-align: center; }
+.status { margin: 3px 0 0; color: var(--blue); font-size: 4px; text-align: center; }
+
+.form::after { position: absolute; top: 24px; right: -7px; z-index: 1; width: 14px; height: 14px; border-radius: 50%; background: var(--cream); box-shadow: 0 36px 0 var(--cream), 0 72px 0 var(--cream); content: ""; }
 
 .footer { position: relative; min-height: 260px; background: var(--blue); }
 .footer::before { position: absolute; top: -29px; right: 0; left: 0; height: 30px; background: radial-gradient(circle at 50% 100%, var(--blue) 29px, transparent 30px) 0 0 / 59px 30px repeat-x; content: ""; }
+
+@media (min-width: 701px) {
+  .hero { min-height: 570px; padding-top: 32px; }
+  .navigation { width: min(880px, calc(100% - 80px)); height: 44px; }
+  .navigation a { font-size: 22px; }
+  .heroBody { display: grid; max-width: 960px; grid-template-columns: minmax(0, 1fr) 290px; align-items: start; column-gap: 74px; margin-top: 54px; padding: 0; }
+  .hero h1 { max-width: none; font-size: clamp(3.15rem, 5vw, 3.9rem); font-weight: 800; letter-spacing: -.04em; line-height: 1.25; }
+  .hero p { max-width: 510px; margin-top: 28px; font-size: clamp(20px, 1.8vw, 24px); line-height: 1.55; }
+  .heroButton { height: 46px; padding: 0 32px; margin-top: 52px; font-size: 16px; }
+  .robot { position: static; width: 290px; margin-top: 62px; }
+
+  .project { padding: 48px 40px 115px; }
+  .project h2 { font-size: clamp(2.2rem, 3.2vw, 3.8rem); }
+  .content { width: min(800px, calc(100% - 80px)); gap: clamp(54px, 7vw, 110px); margin-top: 42px; }
+
+  .flower { width: clamp(260px, 21vw, 330px); height: clamp(260px, 21vw, 330px); gap: 22px; padding: 42px; font-size: clamp(13px, 1vw, 16px); }
+
+  .form { width: clamp(285px, 22vw, 340px); height: clamp(285px, 22vw, 340px); padding: 18px 54px 18px 18px; background-image: linear-gradient(to right, transparent calc(100% - 38px), #73c7d6 calc(100% - 38px), #73c7d6 calc(100% - 35px), transparent calc(100% - 35px)), repeating-linear-gradient(to bottom, #fff 0 19px, #73c7d6 20px 21px); }
+  .form h3 { margin-bottom: 12px; font-size: 20px; line-height: 24px; }
+  .form label { margin-top: 6px; font-size: 13px; line-height: 16px; }
+  .form input, .form textarea { min-height: 18px; border-width: 2px; }
+  .form textarea { height: 42px; }
+  .form button { width: 110px; min-height: 26px; margin-top: 14px; font-size: 13px; }
+  .status { margin-top: 8px; font-size: 11px; }
+  .form::after { top: 58px; right: -20px; width: 40px; height: 40px; box-shadow: 0 92px 0 var(--cream), 0 184px 0 var(--cream); }
+
+  .footer { min-height: 360px; }
+}
 
 @media (max-width: 700px) {
   .hero { min-height: auto; padding-bottom: 60px; }
@@ -143,9 +138,6 @@
   .hero p { margin-right: auto; margin-left: auto; }
   .heroButton { margin-top: 28px; }
   .robot { width: 150px; }
-  .introPanel { height: 430px; }
-  .introPaper { top: 190px; }
-  .project { padding: 35px 20px 80px; }
-  .content { flex-direction: column; gap: 36px; }
-  .flower { max-width: 100%; }
+  .introPanel { height: 500px; margin-top: 48px; }
+  .project { padding: 8px 0 24px; }
 }

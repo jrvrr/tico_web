@@ -25,18 +25,15 @@ export default function Home() {
             </nav>
             <div className={styles.heroBody}>
               <div>
-                <h1>Jugar para explorar. Tecnología para acompañar.</h1>
-                <p id="tdo">Software de apoyo para el estudio y seguimiento del TDO</p>
-                <a className={styles.heroButton} href="#proyecto">Conoce más del proyecto</a>
+                <h1>Acompañamiento que transforma.</h1>
+                <p id="tdo">Tecnología para acompañar el bienestar emocional y el desarrollo infantil.</p>
+                <a className={styles.heroButton} href="#proyecto">Conoce el proyecto</a>
               </div>
               <Image className={styles.robot} src="/assets/png/tico.png" alt="Tico" width={180} height={224} priority />
             </div>
           </header>
 
           <section className={styles.introPanel} aria-label="Bienvenida">
-            <div className={styles.introPaper}>
-              <button className={styles.enterButton} type="button">Entrar</button>
-            </div>
             <div className={styles.bottomScallop} aria-hidden="true" />
           </section>
 
@@ -44,6 +41,21 @@ export default function Home() {
             <h2 id="project-title">Alianzas que transforman</h2>
             <div className={styles.content}>
               <div className={styles.flower}>
+                <svg className={styles.flowerShape} viewBox="0 0 296 296" aria-hidden="true">
+                  <rect x="37" y="37" width="222" height="222" />
+                  {[37, 111, 185, 259].map((x) => (
+                    <g key={x}>
+                      <circle cx={x} cy="37" r="37" />
+                      <circle cx={x} cy="259" r="37" />
+                    </g>
+                  ))}
+                  {[111, 185].map((y) => (
+                    <g key={y}>
+                      <circle cx="37" cy={y} r="37" />
+                      <circle cx="259" cy={y} r="37" />
+                    </g>
+                  ))}
+                </svg>
                 <p>Buscamos conectar con mentes y organizaciones que compartan nuestro deseo de mejorar la salud mental infantil.</p>
                 <p>Si nuestra visión resuena contigo, exploremos cómo podemos colaborar.</p>
               </div>
