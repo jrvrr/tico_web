@@ -34,7 +34,7 @@ export default function Home() {
           </header>
 
           <section className={styles.introPanel} aria-label="Bienvenida">
-            <div className={styles.bottomScallop} aria-hidden="true" />
+            <div className={styles.creamPiece} aria-hidden="true" />
           </section>
 
           <section id="proyecto" className={styles.project} aria-labelledby="project-title">
