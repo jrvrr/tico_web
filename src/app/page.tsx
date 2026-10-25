@@ -166,7 +166,7 @@ export default function Home() {
             {shapeRows.map((row, rowIndex) => (
               <div className={styles.shapeRow} key={rowIndex}>
                 {row.map((shape, shapeIndex) => (
-                  <span className={styles.shape} key={shapeIndex}>
+                  <span className={styles.shape} key={shapeIndex} data-shape={shape}>
                     <ShapeIcon shape={shape} />
                   </span>
                 ))}
