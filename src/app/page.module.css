@@ -16,6 +16,19 @@
   font-family: "Arial Narrow", "Bahnschrift Condensed", Arial, sans-serif;
 }
 
+.frame {
+  position: relative;
+  min-height: 100svh;
+  background: #fdfaf2;
+}
+
+.site {
+  display: flex;
+  min-height: 100svh;
+  flex-direction: column;
+  background: #fdfaf2;
+}
+
 .page :global([data-sileo-title][data-state="warning"]),
 .page :global([data-sileo-badge][data-state="warning"]) {
   color: #8a5100;

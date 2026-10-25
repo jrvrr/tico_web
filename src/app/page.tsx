@@ -121,210 +121,213 @@ export default function Home() {
 
   return (
     <div className={styles.page}>
-      <Toaster
-        position="top-right"
-        options={{ duration: 4000, fill: "#fff7e6", roundness: 16 }}
-      />
-
-      <header id="inicio" className={styles.hero}>
-        <nav className={styles.navigation} aria-label="Navegación principal">
-          <a href="#inicio">Inicio</a>
-          <a href="#tdo">TDO</a>
-          <a href="#proyecto">Proyecto</a>
-          <a href="#equipo">Equipo</a>
-        </nav>
-
-        <div className={styles.heroBody}>
-          <div>
-            <h1 className={styles.heroTitle}>
-              Jugar para explorar. Tecnología para
-              <br className={styles.desktopBreak} /> acompañar.
-            </h1>
-            <p className={styles.heroSubtitle}>
-              Software de apoyo para el estudio
-              <br /> y seguimiento del TDO
-            </p>
-            <a className={styles.heroButton} href="#proyecto">
-              Conoce más del proyecto
-            </a>
-          </div>
-          <Image
-            className={styles.robot}
-            src="/assets/png/tico.png"
-            alt="Tico"
-            width={180}
-            height={224}
+      <div className={styles.frame}>
+        <div className={styles.site}>
+          <Toaster
+            position="top-right"
+            options={{ duration: 4000, fill: "#fff7e6", roundness: 16 }}
           />
-        </div>
-      </header>
 
-      <main>
-        <section id="tdo" className={styles.tdo} aria-labelledby="tdo-title">
-          <h2 id="tdo-title">Conoce el TDO</h2>
-          <p>Comprender es el primer paso para acompañar.</p>
-          <div className={styles.shapeGrid} aria-hidden="true">
-            {shapeRows.map((row, rowIndex) => (
-              <div className={styles.shapeRow} key={rowIndex}>
-                {row.map((shape, shapeIndex) => (
-                  <span className={styles.shape} key={shapeIndex} data-shape={shape}>
-                    <ShapeIcon shape={shape} />
-                  </span>
-                ))}
-              </div>
-            ))}
-          </div>
-        </section>
+          <header id="inicio" className={styles.hero}>
+            <nav className={styles.navigation} aria-label="Navegación principal">
+              <a href="#inicio">Inicio</a>
+              <a href="#tdo">TDO</a>
+              <a href="#proyecto">Proyecto</a>
+              <a href="#equipo">Equipo</a>
+            </nav>
 
-        <section className={styles.introPanel} aria-label="Bienvenida">
-          <div className={styles.creamPiece} aria-hidden="true" />
-        </section>
-
-        <section id="proyecto" className={styles.upper} aria-labelledby="page-title">
-          <h2 id="page-title" className={styles.title}>
-            Alianzas que transforman
-          </h2>
-
-          <div className={styles.content}>
-            <div className={styles.flower}>
-              <svg className={styles.flowerShape} viewBox="0 0 296 296" aria-hidden="true">
-                <rect x="37" y="37" width="222" height="222" />
-                {[37, 111, 185, 259].map((x) => (
-                  <g key={x}>
-                    <circle cx={x} cy="37" r="37" />
-                    <circle cx={x} cy="259" r="37" />
-                  </g>
-                ))}
-                {[111, 185].map((y) => (
-                  <g key={y}>
-                    <circle cx="37" cy={y} r="37" />
-                    <circle cx="259" cy={y} r="37" />
-                  </g>
-                ))}
-              </svg>
-              <div className={styles.flowerCopy}>
-                <p>
-                  Buscamos conectar con mentes y organizaciones que compartan
-                  nuestro deseo de mejorar la salud mental infantil.
+            <div className={styles.heroBody}>
+              <div>
+                <h1 className={styles.heroTitle}>
+                  Acompañamiento que transforma.
+                </h1>
+                <p className={styles.heroSubtitle}>
+                  Tecnología para acompañar el bienestar emocional y el desarrollo infantil.
                 </p>
-                <p>
-                  Si nuestra visión resuena contigo, exploremos cómo podemos
-                  colaborar.
-                </p>
+                <a className={styles.heroButton} href="#proyecto">
+                  Conoce el proyecto
+                </a>
               </div>
+              <Image
+                className={styles.robot}
+                src="/assets/png/tico.png"
+                alt="Tico"
+                width={180}
+                height={224}
+                priority
+              />
             </div>
+          </header>
 
-            <form
-              id="equipo"
-              className={styles.paper}
-              onSubmit={handleSubmit}
-              noValidate
-              aria-labelledby="form-title"
-            >
-              <h3 id="form-title" className={styles.formTitle}>
-                Formulario
-              </h3>
-
-              <div className={styles.field}>
-                <label htmlFor="name">Nombre completo</label>
-                <input
-                  id="name"
-                  name="name"
-                  autoComplete="name"
-                  required
-                  minLength={3}
-                  maxLength={100}
-                  value={values.name}
-                  onChange={(event) => update("name", event.target.value)}
-                  onBlur={() => validateOnBlur("name")}
-                  aria-invalid={Boolean(errors.name)}
-                  aria-describedby={errors.name ? "name-error" : undefined}
-                />
-                {errors.name && (
-                  <span id="name-error" className={styles.error}>
-                    {errors.name}
-                  </span>
-                )}
+          <main>
+            <section id="tdo" className={styles.tdo} aria-labelledby="tdo-title">
+              <h2 id="tdo-title">Conoce el TDO</h2>
+              <p>Comprender es el primer paso para acompañar.</p>
+              <div className={styles.shapeGrid} aria-hidden="true">
+                {shapeRows.map((row, rowIndex) => (
+                  <div className={styles.shapeRow} key={rowIndex}>
+                    {row.map((shape, shapeIndex) => (
+                      <span className={styles.shape} key={shapeIndex} data-shape={shape}>
+                        <ShapeIcon shape={shape} />
+                      </span>
+                    ))}
+                  </div>
+                ))}
               </div>
+            </section>
 
-              <div className={styles.field}>
-                <label htmlFor="email">Correo de contacto</label>
-                <input
-                  id="email"
-                  name="email"
-                  type="email"
-                  autoComplete="email"
-                  required
-                  maxLength={254}
-                  value={values.email}
-                  onChange={(event) => update("email", event.target.value)}
-                  onBlur={() => validateOnBlur("email")}
-                  aria-invalid={Boolean(errors.email)}
-                  aria-describedby={errors.email ? "email-error" : undefined}
-                />
-                {errors.email && (
-                  <span id="email-error" className={styles.error}>
-                    {errors.email}
-                  </span>
-                )}
+            <section className={styles.introPanel} aria-label="Bienvenida">
+              <div className={styles.creamPiece} aria-hidden="true" />
+            </section>
+
+            <section id="proyecto" className={styles.upper} aria-labelledby="page-title">
+              <h2 id="page-title" className={styles.title}>
+                Alianzas que transforman
+              </h2>
+
+              <div className={styles.content}>
+                <div className={styles.flower}>
+                  <svg className={styles.flowerShape} viewBox="0 0 296 296" aria-hidden="true">
+                    <rect x="37" y="37" width="222" height="222" />
+                    {[37, 111, 185, 259].map((x) => (
+                      <g key={x}>
+                        <circle cx={x} cy="37" r="37" />
+                        <circle cx={x} cy="259" r="37" />
+                      </g>
+                    ))}
+                    {[111, 185].map((y) => (
+                      <g key={y}>
+                        <circle cx="37" cy={y} r="37" />
+                        <circle cx="259" cy={y} r="37" />
+                      </g>
+                    ))}
+                  </svg>
+                  <div className={styles.flowerCopy}>
+                    <p>
+                      Buscamos conectar con mentes y organizaciones que compartan
+                      nuestro deseo de mejorar la salud mental infantil.
+                    </p>
+                    <p>
+                      Si nuestra visión resuena contigo, exploremos cómo podemos
+                      colaborar.
+                    </p>
+                  </div>
+                </div>
+
+                <form
+                  id="equipo"
+                  className={styles.paper}
+                  onSubmit={handleSubmit}
+                  noValidate
+                  aria-labelledby="form-title"
+                >
+                  <h3 id="form-title" className={styles.formTitle}>
+                    Formulario
+                  </h3>
+
+                  <div className={styles.field}>
+                    <label htmlFor="name">Nombre completo</label>
+                    <input
+                      id="name"
+                      name="name"
+                      autoComplete="name"
+                      required
+                      minLength={3}
+                      maxLength={100}
+                      value={values.name}
+                      onChange={(event) => update("name", event.target.value)}
+                      onBlur={() => validateOnBlur("name")}
+                      aria-invalid={Boolean(errors.name)}
+                      aria-describedby={errors.name ? "name-error" : undefined}
+                    />
+                    {errors.name && (
+                      <span id="name-error" className={styles.error}>
+                        {errors.name}
+                      </span>
+                    )}
+                  </div>
+
+                  <div className={styles.field}>
+                    <label htmlFor="email">Correo de contacto</label>
+                    <input
+                      id="email"
+                      name="email"
+                      type="email"
+                      autoComplete="email"
+                      required
+                      maxLength={254}
+                      value={values.email}
+                      onChange={(event) => update("email", event.target.value)}
+                      onBlur={() => validateOnBlur("email")}
+                      aria-invalid={Boolean(errors.email)}
+                      aria-describedby={errors.email ? "email-error" : undefined}
+                    />
+                    {errors.email && (
+                      <span id="email-error" className={styles.error}>
+                        {errors.email}
+                      </span>
+                    )}
+                  </div>
+
+                  <div className={styles.field}>
+                    <label htmlFor="interest">Área de interés</label>
+                    <input
+                      id="interest"
+                      name="interest"
+                      required
+                      minLength={3}
+                      maxLength={120}
+                      value={values.interest}
+                      onChange={(event) => update("interest", event.target.value)}
+                      onBlur={() => validateOnBlur("interest")}
+                      aria-invalid={Boolean(errors.interest)}
+                      aria-describedby={errors.interest ? "interest-error" : undefined}
+                    />
+                    {errors.interest && (
+                      <span id="interest-error" className={styles.error}>
+                        {errors.interest}
+                      </span>
+                    )}
+                  </div>
+
+                  <div className={styles.field}>
+                    <label htmlFor="message">Mensaje</label>
+                    <textarea
+                      id="message"
+                      name="message"
+                      required
+                      minLength={10}
+                      maxLength={1000}
+                      rows={2}
+                      value={values.message}
+                      onChange={(event) => update("message", event.target.value)}
+                      onBlur={() => validateOnBlur("message")}
+                      aria-invalid={Boolean(errors.message)}
+                      aria-describedby={errors.message ? "message-error" : undefined}
+                    />
+                    {errors.message && (
+                      <span id="message-error" className={styles.error}>
+                        {errors.message}
+                      </span>
+                    )}
+                  </div>
+
+                  <button className={styles.submit} type="submit">
+                    Enviar
+                  </button>
+                  {validated && (
+                    <p className={styles.status} role="status">
+                      Datos válidos. El formulario está listo para conectar el envío.
+                    </p>
+                  )}
+                </form>
               </div>
+            </section>
+          </main>
 
-              <div className={styles.field}>
-                <label htmlFor="interest">Área de interés</label>
-                <input
-                  id="interest"
-                  name="interest"
-                  required
-                  minLength={3}
-                  maxLength={120}
-                  value={values.interest}
-                  onChange={(event) => update("interest", event.target.value)}
-                  onBlur={() => validateOnBlur("interest")}
-                  aria-invalid={Boolean(errors.interest)}
-                  aria-describedby={errors.interest ? "interest-error" : undefined}
-                />
-                {errors.interest && (
-                  <span id="interest-error" className={styles.error}>
-                    {errors.interest}
-                  </span>
-                )}
-              </div>
-
-              <div className={styles.field}>
-                <label htmlFor="message">Mensaje</label>
-                <textarea
-                  id="message"
-                  name="message"
-                  required
-                  minLength={10}
-                  maxLength={1000}
-                  rows={2}
-                  value={values.message}
-                  onChange={(event) => update("message", event.target.value)}
-                  onBlur={() => validateOnBlur("message")}
-                  aria-invalid={Boolean(errors.message)}
-                  aria-describedby={errors.message ? "message-error" : undefined}
-                />
-                {errors.message && (
-                  <span id="message-error" className={styles.error}>
-                    {errors.message}
-                  </span>
-                )}
-              </div>
-
-              <button className={styles.submit} type="submit">
-                Enviar
-              </button>
-              {validated && (
-                <p className={styles.status} role="status">
-                  Datos válidos. El formulario está listo para conectar el envío.
-                </p>
-              )}
-            </form>
-          </div>
-        </section>
-      </main>
-
-      <footer className={styles.footer} aria-label="Pie de página" />
+          <footer className={styles.footer} aria-label="Pie de página" />
+        </div>
+      </div>
     </div>
   );
 }
