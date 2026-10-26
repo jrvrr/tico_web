@@ -3,6 +3,12 @@
   --flower-blue: #5c93c9;
   --paper-line: #73c7d6;
   --hero-pink: #f88cac;
+  --green: #cbdc9d;
+  --outline-blue: #3971b8;
+  --outline-pink: #df5d8a;
+  --outline-yellow: #c49000;
+  --outline-green: #53895c;
+  --fond: #f9f1da;
   display: flex;
   min-height: 100vh;
   flex-direction: column;
@@ -22,12 +28,12 @@
 
 .hero {
   position: relative;
-  height: 441px;
+  min-height: clamp(450px, 44vw, 560px);
   flex: none;
   margin-bottom: 55px;
-  padding-top: 29px;
+  padding: 29px 24px 78px;
   background: var(--hero-pink);
-  color: white;
+  color: #12374a;
 }
 
 .hero::after {
@@ -43,8 +49,8 @@
 
 .navigation {
   display: flex;
-  width: min(534px, calc(100% - 40px));
-  height: 31px;
+  width: min(900px, 100%);
+  min-height: 44px;
   align-items: center;
   justify-content: space-around;
   margin: 0 auto;
@@ -53,8 +59,11 @@
 }
 
 .navigation a {
-  padding: 3px 9px;
-  color: white;
+  display: flex;
+  min-height: 44px;
+  align-items: center;
+  padding: 0 12px;
+  color: #12374a;
   font-size: 17px;
   font-weight: 700;
   letter-spacing: 0.025em;
@@ -73,35 +82,51 @@
 }
 
 .heroBody {
-  position: relative;
-  max-width: 762px;
+  display: grid;
+  width: min(1180px, 100%);
+  grid-template-columns: minmax(0, 1fr) clamp(150px, 22vw, 250px);
+  align-items: center;
+  gap: clamp(24px, 5vw, 76px);
   margin: 54px auto 0;
-  padding: 0 20px 0 76px;
+  padding: 0;
+}
+
+.heroCopy {
+  max-width: 700px;
 }
 
 .heroTitle {
-  max-width: 640px;
+  max-width: 18ch;
   margin: 0;
-  font: 700 36px/1.45 Arial, Helvetica, sans-serif;
+  color: var(--deep-blue);
+  font: 700 clamp(2.2rem, 4.8vw, 3.6rem)/1.14 Arial, Helvetica, sans-serif;
   letter-spacing: -0.025em;
+  text-wrap: balance;
 }
 
 .heroSubtitle {
   margin: 12px 0 0;
+  color: #12374a;
   font: 700 18px/1.55 Arial, Helvetica, sans-serif;
+  text-wrap: pretty;
+}
+
+.desktopBreak {
+  display: initial;
 }
 
 .heroButton {
   display: inline-flex;
-  width: 184px;
-  height: 30px;
+  min-width: 184px;
+  min-height: 44px;
   align-items: center;
   justify-content: center;
-  margin-top: 49px;
+  padding: 0 24px;
+  margin-top: 32px;
   border-radius: 999px;
   background: #f0e6be;
-  color: #2c2c2c;
-  font: 700 12px/1 Arial, Helvetica, sans-serif;
+  color: #12374a;
+  font: 700 14px/1.25 Arial, Helvetica, sans-serif;
   text-decoration: none;
 }
 
@@ -110,43 +135,178 @@
 }
 
 .robot {
-  position: absolute;
-  top: 52px;
-  right: 53px;
-  width: 180px;
-  height: 224px;
+  display: block;
+  width: 100%;
+  max-width: 250px;
+  height: auto;
+  justify-self: center;
   object-fit: contain;
 }
 
+.tdo {
+  min-height: 450px;
+  padding: 63px 20px 64px;
+  background: #fdfaf2;
+  text-align: center;
+}
+
+.tdo h2 {
+  margin: 0;
+  color: var(--deep-blue);
+  font-size: 30px;
+  letter-spacing: 0.04em;
+  line-height: 1.2;
+  text-wrap: balance;
+}
+
+.tdo p {
+  margin: 12px 0 0;
+  color: #292929;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.4;
+  text-wrap: pretty;
+}
+
+.shapeGrid {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(9px, 2.4vw, 13px);
+  margin: 28px auto 0;
+}
+
+.shapeRow {
+  display: flex;
+  justify-content: center;
+  gap: clamp(8px, 2.4vw, 13px);
+}
+
+.shape {
+  display: block;
+  width: clamp(52px, 13vw, 72px);
+  height: clamp(52px, 13vw, 72px);
+  flex: none;
+}
+
+.shape svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  fill: #d8d8d8;
+  stroke: var(--outline-blue);
+  stroke-width: 1.1;
+  stroke-linejoin: round;
+}
+
+.shape[data-shape="circle"] svg {
+  stroke: var(--outline-pink);
+}
+
+.shape[data-shape="arch"] svg {
+  stroke: var(--outline-yellow);
+}
+
+.shape[data-shape="square"] svg {
+  stroke: var(--outline-green);
+}
+
+.introPanel {
+  position: relative;
+  height: 2000px;
+  margin-top: 128px;
+  overflow: hidden;
+  background: #fdfaf2;
+}
+
+.introPanel::before,
+.introPanel::after {
+  position: absolute;
+  right: 20px;
+  left: 20px;
+  background: var(--green);
+  content: "";
+}
+
+.introPanel::before {
+  top: 27px;
+  bottom: 20px;
+}
+
+.introPanel::after {
+  top: -2px;
+  height: 30px;
+  background: radial-gradient(circle at 50% 100%, var(--green) 28px, transparent 29px) 0 0 / 57px 30px repeat-x;
+}
+
+.creamPiece {
+  position: absolute;
+  top: calc(50vw + 160px);
+  right: auto;
+  bottom: 85px;
+  left: 50%;
+  z-index: 1;
+  width: min(82%, 1550px);
+  container-type: inline-size;
+  transform: translateX(-50%);
+  background: var(--fond);
+}
+
+.creamPiece::before,
+.creamPiece::after {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  content: "";
+}
+
+.creamPiece::before {
+  top: calc(-1 * min(50vw, 50cqw));
+  aspect-ratio: 1;
+  border-radius: 50%;
+  clip-path: inset(0 0 50%);
+  background: var(--fond);
+}
+
+.creamPiece::after {
+  bottom: -25px;
+  height: 25px;
+  background: radial-gradient(circle at 50% 0, var(--fond) 24px, transparent 25px) 0 0 / 50px 25px repeat-x;
+}
+
 .upper {
-  min-height: 565px;
-  margin-top: 117px;
-  padding: 53px 0 100px;
+  min-height: 0;
+  margin-top: 0;
+  padding: clamp(64px, 8vw, 104px) 24px clamp(88px, 10vw, 132px);
 }
 
 .title {
-  margin: 0;
+  max-width: 18ch;
+  margin: 0 auto;
   color: var(--deep-blue);
-  font-size: clamp(2.1rem, 5.9vw, 2.85rem);
+  font-size: clamp(2.1rem, 4.6vw, 3.8rem);
   font-weight: 700;
   letter-spacing: 0.08em;
   line-height: 1.15;
   text-align: center;
+  text-wrap: balance;
 }
 
 .content {
-  display: flex;
-  width: min(700px, calc(100% - 52px));
-  align-items: flex-start;
-  gap: 60px;
-  margin: 33px auto 0;
+  display: grid;
+  width: min(1100px, 100%);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: center;
+  gap: clamp(28px, 5.5vw, 90px);
+  margin: 40px auto 0;
 }
 
 .flower {
   position: relative;
-  width: 296px;
-  height: 296px;
+  width: min(100%, 420px);
+  aspect-ratio: 1;
+  height: auto;
   flex: none;
+  justify-self: center;
 }
 
 .flowerShape {
@@ -165,7 +325,7 @@
   flex-direction: column;
   justify-content: center;
   gap: 22px;
-  width: 195px;
+  width: min(68%, 280px);
   margin: auto;
   padding: 0;
   color: white;
@@ -175,6 +335,7 @@
   letter-spacing: 0.02em;
   line-height: 1.5;
   text-align: center;
+  text-wrap: pretty;
 }
 
 .flowerCopy p {
@@ -183,10 +344,13 @@
 
 .paper {
   position: relative;
-  width: 297px;
-  min-height: 297px;
+  display: flex;
+  width: min(100%, 440px);
+  min-height: 400px;
   flex: none;
-  padding: 15px 12px 22px;
+  flex-direction: column;
+  justify-self: center;
+  padding: 22px clamp(18px, 3vw, 32px) 28px;
   background-image:
     linear-gradient(to right, transparent calc(100% - 34px), var(--paper-line) calc(100% - 34px), var(--paper-line) calc(100% - 32px), transparent calc(100% - 32px)),
     repeating-linear-gradient(to bottom, white 0 14px, var(--paper-line) 15px 16px);
@@ -195,37 +359,39 @@
 }
 
 .formTitle {
-  margin: 0 0 12px;
-  font-size: 17px;
-  line-height: 22px;
+  margin: 0 0 16px;
+  color: var(--deep-blue);
+  font-size: 20px;
+  line-height: 1.2;
   text-align: center;
 }
 
 .field {
-  margin-bottom: 8px;
+  margin-bottom: 10px;
 }
 
 .field label {
   display: block;
-  font-size: 13px;
-  line-height: 18px;
+  font-size: 14px;
+  line-height: 1.4;
+  text-wrap: pretty;
 }
 
 .field input,
 .field textarea {
   display: block;
-  width: 211px;
-  min-height: 16px;
-  padding: 0 4px;
+  width: 100%;
+  min-height: 40px;
+  padding: 6px 8px;
   border: 2px solid var(--paper-line);
   border-radius: 0;
   background: rgb(255 255 255 / 94%);
   color: #2c2c2c;
-  font: 13px Arial, sans-serif;
+  font: 15px Arial, sans-serif;
 }
 
 .field textarea {
-  height: 31px;
+  height: 72px;
   resize: vertical;
 }
 
@@ -242,7 +408,7 @@
 
 .error {
   display: block;
-  width: 230px;
+  width: 100%;
   margin: 3px 0 6px;
   padding: 2px 3px;
   background: white;
@@ -252,16 +418,16 @@
 
 .submit {
   display: block;
-  width: 108px;
-  min-height: 23px;
-  margin: 15px auto 0;
+  width: min(100%, 160px);
+  min-height: 44px;
+  margin: 10px auto 0;
   padding: 2px 8px;
   border: 0;
   border-radius: 999px;
   background: var(--deep-blue);
   color: white;
   cursor: pointer;
-  font: 700 14px/1.2 "Arial Narrow", "Bahnschrift Condensed", Arial, sans-serif;
+  font: 700 15px/1.2 "Arial Narrow", "Bahnschrift Condensed", Arial, sans-serif;
   letter-spacing: 0.03em;
 }
 
@@ -279,7 +445,7 @@
 
 .footer {
   position: relative;
-  min-height: 365px;
+  min-height: 280px;
   flex: 1;
   background: var(--deep-blue);
 }
@@ -294,11 +460,41 @@
   content: "";
 }
 
+@media (min-width: 701px) {
+  .tdo {
+    padding: clamp(76px, 7.5vw, 116px) 32px clamp(84px, 7.5vw, 126px);
+  }
+
+  .tdo h2 {
+    font-size: clamp(44px, 5.5vw, 78px);
+  }
+
+  .tdo p {
+    font-size: clamp(17px, 2.2vw, 26px);
+  }
+
+  .shapeGrid {
+    max-width: 1060px;
+    gap: clamp(18px, 2.6vw, 34px);
+    margin-top: clamp(40px, 4.8vw, 72px);
+  }
+
+  .shapeRow {
+    gap: clamp(18px, 2.6vw, 34px);
+  }
+
+  .shape {
+    width: clamp(88px, 13.5vw, 180px);
+    height: clamp(88px, 13.5vw, 180px);
+  }
+}
+
 @media (min-width: 1100px) {
   .hero {
-    height: clamp(460px, 29vw, 550px);
+    min-height: clamp(520px, 36vw, 640px);
     margin-bottom: 75px;
     padding-top: clamp(29px, 2vw, 38px);
+    padding-bottom: 90px;
   }
 
   .hero::after {
@@ -317,14 +513,15 @@
 
   .heroBody {
     max-width: 1400px;
+    width: min(1400px, 100%);
     margin-top: clamp(54px, 3.5vw, 70px);
     padding: 0 clamp(40px, 3vw, 58px);
   }
 
   .heroTitle {
-    max-width: 1050px;
-    font-size: clamp(38px, 2.85vw, 55px);
-    line-height: 1.3;
+    max-width: 18ch;
+    font-size: clamp(42px, 3.4vw, 64px);
+    line-height: 1.08;
   }
 
   .heroSubtitle {
@@ -334,22 +531,21 @@
 
   .heroButton {
     width: clamp(200px, 13.2vw, 254px);
-    height: clamp(34px, 2.25vw, 43px);
+    min-height: 44px;
     margin-top: clamp(35px, 3vw, 55px);
     font-size: clamp(13px, 0.85vw, 16px);
   }
 
   .robot {
-    top: 40px;
-    right: clamp(40px, 3vw, 58px);
     width: clamp(190px, 14vw, 270px);
+    max-width: 100%;
     height: auto;
   }
 
   .upper {
     min-height: 0;
-    margin-top: clamp(65px, 5vw, 95px);
-    padding: 55px 0 140px;
+    margin-top: 0;
+    padding: clamp(64px, 6vw, 96px) 40px clamp(110px, 10vw, 144px);
   }
 
   .title {
@@ -358,14 +554,15 @@
 
   .content {
     width: min(1100px, calc(100% - 80px));
-    justify-content: center;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-items: center;
     gap: clamp(70px, 7vw, 130px);
     margin-top: 48px;
   }
 
   .flower {
     width: clamp(320px, 22vw, 420px);
-    height: clamp(320px, 22vw, 420px);
+    height: auto;
   }
 
   .flowerCopy {
@@ -376,7 +573,7 @@
 
   .paper {
     width: clamp(335px, 23vw, 440px);
-    min-height: clamp(335px, 23vw, 440px);
+    min-height: clamp(400px, 28vw, 460px);
     padding: 22px 20px 30px;
     background-image:
       linear-gradient(to right, transparent calc(100% - 48px), var(--paper-line) calc(100% - 48px), var(--paper-line) calc(100% - 46px), transparent calc(100% - 46px)),
@@ -401,13 +598,13 @@
   .field input,
   .field textarea {
     width: min(100%, 315px);
-    min-height: 24px;
+    min-height: 40px;
     padding: 1px 6px;
     font-size: 16px;
   }
 
   .field textarea {
-    height: 56px;
+    height: 72px;
   }
 
   .error {
@@ -417,7 +614,7 @@
 
   .submit {
     width: 150px;
-    min-height: 33px;
+    min-height: 44px;
     margin-top: 19px;
     font-size: 18px;
   }
@@ -427,7 +624,7 @@
   }
 
   .footer {
-    min-height: 450px;
+    min-height: 320px;
   }
 
   .footer::before {
@@ -439,9 +636,9 @@
 
 @media (max-width: 700px) {
   .hero {
-    height: auto;
+    min-height: 0;
     margin-bottom: 35px;
-    padding: 20px 0 55px;
+    padding: 20px 16px 60px;
   }
 
   .hero::after {
@@ -450,18 +647,26 @@
   }
 
   .navigation a {
-    padding-inline: 5px;
-    font-size: 15px;
+    padding-inline: 4px;
+    font-size: 14px;
   }
 
   .heroBody {
+    width: min(100%, 520px);
+    grid-template-columns: 1fr;
+    gap: 22px;
     margin-top: 42px;
-    padding: 0 24px;
+    padding: 0 8px;
+    text-align: center;
+  }
+
+  .heroCopy {
+    margin: 0 auto;
   }
 
   .heroTitle {
-    font-size: clamp(28px, 8vw, 36px);
-    line-height: 1.2;
+    font-size: clamp(30px, 8vw, 42px);
+    line-height: 1.12;
   }
 
   .desktopBreak {
@@ -470,6 +675,29 @@
 
   .heroSubtitle {
     font-size: 16px;
+    line-height: 1.5;
+  }
+
+  .tdo {
+    min-height: 0;
+    padding: 63px 14px 64px;
+  }
+
+  .tdo h2 {
+    font-size: 29px;
+  }
+
+  .tdo p {
+    font-size: 14px;
+  }
+
+  .introPanel {
+    height: 800px;
+    margin-top: 96px;
+  }
+
+  .creamPiece {
+    width: calc(100% - 96px);
   }
 
   .heroButton {
@@ -478,14 +706,14 @@
 
   .robot {
     position: static;
-    display: block;
-    margin: 30px auto 0;
+    width: clamp(140px, 46vw, 184px);
+    margin: 0 auto;
   }
 
   .upper {
     min-height: 0;
-    margin-top: 40px;
-    padding: 53px 20px 100px;
+    margin-top: 0;
+    padding: 48px 18px 88px;
   }
 
   .title {
@@ -494,14 +722,24 @@
 
   .content {
     width: 100%;
-    flex-direction: column;
-    align-items: center;
-    gap: 40px;
-    margin-top: 34px;
+    grid-template-columns: 1fr;
+    justify-items: center;
+    gap: 32px;
+    margin-top: 30px;
   }
 
-  .flower,
-  .paper {
+  .flower {
+    width: min(100%, 360px);
     max-width: 100%;
+  }
+
+  .paper {
+    width: min(100%, 420px);
+    min-height: 0;
+    padding: 22px 20px 26px;
+  }
+
+  .footer {
+    min-height: 220px;
   }
 }

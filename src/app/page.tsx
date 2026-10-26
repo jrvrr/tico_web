@@ -49,6 +49,38 @@ function validateField(field: Field, value: string) {
   return validate({ ...initialValues, [field]: value })[field];
 }
 
+const shapeRows = [
+  ["flower", "circle", "arch", "square", "flower"],
+  ["arch", "square", "circle", "arch"],
+  ["square", "flower", "circle"],
+] as const;
+
+const shapePaths = {
+  flower:
+    "M20 2 C11 2 5 8 5 16 C5 23 9 28 16 28 C9 28 5 33 5 40 C5 47 9 52 16 52 C9 52 5 57 5 65 C5 73 11 79 20 79 C27 79 32 75 32 68 C32 75 37 79 44 79 C51 79 56 75 56 68 C56 75 61 79 68 79 C76 79 82 73 82 65 C82 58 78 53 71 53 C78 53 82 48 82 41 C82 34 78 29 71 29 C78 29 82 24 82 17 C82 9 76 3 68 3 C61 3 56 7 56 14 C56 7 51 3 44 3 C37 3 32 7 32 14 C32 7 27 2 20 2 Z",
+  arch:
+    "M26 1 C12 1 1 12 1 26 V82 C1 97 13 100 21 91 C27 100 38 100 44 91 C51 100 62 100 68 91 C78 101 99 97 99 82 V26 C99 12 88 1 74 1 Z",
+} as const;
+
+type Shape = (typeof shapeRows)[number][number];
+
+function ShapeIcon({ shape }: { shape: Shape }) {
+  return (
+    <svg viewBox="0 0 100 100" aria-hidden="true">
+      {shape === "circle" ? (
+        <circle cx="50" cy="50" r="49" />
+      ) : shape === "square" ? (
+        <rect x="1" y="1" width="98" height="98" rx="31" />
+      ) : (
+        <path
+          d={shapePaths[shape]}
+          transform={shape === "flower" ? "translate(-3 -2) scale(1.24)" : undefined}
+        />
+      )}
+    </svg>
+  );
+}
+
 export default function Home() {
   const [values, setValues] = useState<Values>(initialValues);
   const [errors, setErrors] = useState<Errors>({});
@@ -104,7 +136,7 @@ export default function Home() {
             <h1 className={styles.heroTitle}>
               Jugar para explorar. Tecnología para<br className={styles.desktopBreak} /> acompañar.
             </h1>
-            <p id="tdo" className={styles.heroSubtitle}>
+            <p className={styles.heroSubtitle}>
               Software de apoyo para el estudio<br /> y seguimiento del TDO
             </p>
             <a className={styles.heroButton} href="#proyecto">Conoce más del proyecto</a>
@@ -114,6 +146,26 @@ export default function Home() {
       </header>
 
       <main>
+        <section id="tdo" className={styles.tdo} aria-labelledby="tdo-title">
+          <h2 id="tdo-title">Conoce el TDO</h2>
+          <p>Comprender es el primer paso para acompañar.</p>
+          <div className={styles.shapeGrid} aria-hidden="true">
+            {shapeRows.map((row, rowIndex) => (
+              <div className={styles.shapeRow} key={rowIndex}>
+                {row.map((shape, shapeIndex) => (
+                  <span className={styles.shape} key={shapeIndex} data-shape={shape}>
+                    <ShapeIcon shape={shape} />
+                  </span>
+                ))}
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <section className={styles.introPanel} aria-label="Bienvenida">
+          <div className={styles.creamPiece} aria-hidden="true" />
+        </section>
+
       <section id="proyecto" className={styles.upper} aria-labelledby="page-title">
         <h2 id="page-title" className={styles.title}>
           Alianzas que transforman
