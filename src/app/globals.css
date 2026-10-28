@@ -1,6 +1,10 @@
 @import "tailwindcss";
 @plugin "daisyui";
 
+:root {
+  --font-family: "Arial Narrow", "Bahnschrift Condensed", Arial, sans-serif;
+}
+
 * {
   box-sizing: border-box;
 }
@@ -12,5 +16,15 @@ body {
 }
 
 body {
-  font-family: "Arial Narrow", "Bahnschrift Condensed", Arial, sans-serif;
+  font-family: var(--font-family);
+}
+
+[data-sileo-title][data-state="warning"],
+[data-sileo-badge][data-state="warning"] {
+  color: #8a5100;
+}
+
+[data-sileo-description] {
+  color: #3f2a0a !important;
+  font-weight: 600;
 }

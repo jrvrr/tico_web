@@ -58,10 +58,11 @@ const shapePaths = {
   flower:
     "M20 2 C11 2 5 8 5 16 C5 23 9 28 16 28 C9 28 5 33 5 40 C5 47 9 52 16 52 C9 52 5 57 5 65 C5 73 11 79 20 79 C27 79 32 75 32 68 C32 75 37 79 44 79 C51 79 56 75 56 68 C56 75 61 79 68 79 C76 79 82 73 82 65 C82 58 78 53 71 53 C78 53 82 48 82 41 C82 34 78 29 71 29 C78 29 82 24 82 17 C82 9 76 3 68 3 C61 3 56 7 56 14 C56 7 51 3 44 3 C37 3 32 7 32 14 C32 7 27 2 20 2 Z",
   arch:
-    "M26 1 C12 1 1 12 1 26 V82 C1 97 13 100 21 91 C27 100 38 100 44 91 C51 100 62 100 68 91 C78 101 99 97 99 82 V26 C99 12 88 1 74 1 Z",
+    "M26 1 C12 1 1 12 1 26 V82 A12.25 12.25 0 0 0 25.5 82 A12.25 12.25 0 0 0 50 82 A12.25 12.25 0 0 0 74.5 82 A12.25 12.25 0 0 0 99 82 V26 C99 12 88 1 74 1 Z",
 } as const;
 
 type Shape = (typeof shapeRows)[number][number];
+const greenShapes = ["flower", "arch", "circle", "square"] as const;
 
 function ShapeIcon({ shape }: { shape: Shape }) {
   return (
@@ -177,6 +178,13 @@ export default function Home() {
             </section>
 
             <section className={styles.introPanel} aria-label="Bienvenida">
+              <div className={styles.greenShapeRow} aria-hidden="true">
+                {greenShapes.map((shape) => (
+                  <span className={styles.shape} key={shape} data-shape={shape}>
+                    <ShapeIcon shape={shape} />
+                  </span>
+                ))}
+              </div>
               <div className={styles.creamPiece} aria-hidden="true" />
             </section>
 
