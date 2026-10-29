@@ -247,6 +247,39 @@
   background: radial-gradient(circle at 50% 0, var(--fond) 24px, transparent 25px) 0 0 / 50px 25px repeat-x;
 }
 
+.creamArcText {
+  position: absolute;
+  top: calc(-1 * min(50vw, 50cqw));
+  left: 0;
+  z-index: 2;
+  display: block;
+  width: 100%;
+  aspect-ratio: 1;
+  overflow: visible;
+}
+
+.creamArcLabel {
+  fill: var(--deep-blue);
+  font-family: var(--font-family);
+  font-size: clamp(24px, 3.2cqw, 48px);
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.creamCopy {
+  position: absolute;
+  top: calc(-1 * min(25vw, 25cqw));
+  left: 50%;
+  z-index: 2;
+  width: min(72%, 700px);
+  margin: 0;
+  transform: translateX(-50%);
+  color: #383838;
+  font-size: clamp(16px, 1.1vw, 20px);
+  line-height: 1.6;
+  text-align: center;
+}
+
 .introTitle {
   position: absolute;
   top: clamp(60px, 4vw, 80px);

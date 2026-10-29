@@ -195,7 +195,26 @@ export default function Home() {
                   </span>
                 ))}
               </div>
-              <div className={styles.creamPiece} aria-hidden="true" />
+              <div className={styles.creamPiece}>
+                <svg
+                  className={styles.creamArcText}
+                  viewBox="0 0 1000 1000"
+                  role="img"
+                  aria-label="Crecer con confianza"
+                >
+                  <defs>
+                    <path id="cream-title-arc" d="M70 500 A430 430 0 0 1 930 500" />
+                  </defs>
+                  <text className={styles.creamArcLabel}>
+                    <textPath href="#cream-title-arc" startOffset="50%" textAnchor="middle">
+                      Crecer con confianza
+                    </textPath>
+                  </text>
+                </svg>
+                <p className={styles.creamCopy}>
+                  Un espacio para descubrir emociones, aprender y crecer con acompañamiento cercano.
+                </p>
+              </div>
               <h2 id="intro-title" className={`${styles.title} ${styles.introTitle}`}>
                 Lorem ipsum
               </h2>
