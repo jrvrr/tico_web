@@ -56,12 +56,15 @@ const shapeRows = [
 
 const shapePaths = {
   flower:
-    "M20 2 C11 2 5 8 5 16 C5 23 9 28 16 28 C9 28 5 33 5 40 C5 47 9 52 16 52 C9 52 5 57 5 65 C5 73 11 79 20 79 C27 79 32 75 32 68 C32 75 37 79 44 79 C51 79 56 75 56 68 C56 75 61 79 68 79 C76 79 82 73 82 65 C82 58 78 53 71 53 C78 53 82 48 82 41 C82 34 78 29 71 29 C78 29 82 24 82 17 C82 9 76 3 68 3 C61 3 56 7 56 14 C56 7 51 3 44 3 C37 3 32 7 32 14 C32 7 27 2 20 2 Z",
+    "M50 0 A25 25 0 0 1 75 25 A25 25 0 0 1 75 75 A25 25 0 0 1 50 100 A25 25 0 0 1 25 75 A25 25 0 0 1 25 25 A25 25 0 0 1 50 0 Z",
   arch:
-    "M26 1 C12 1 1 12 1 26 V82 C1 97 13 100 21 91 C27 100 38 100 44 91 C51 100 62 100 68 91 C78 101 99 97 99 82 V26 C99 12 88 1 74 1 Z",
+    "M25 0 C11.2 0 0 11.2 0 25 V90 A10 10 0 0 0 20 90 A10 10 0 0 0 40 90 A10 10 0 0 0 60 90 A10 10 0 0 0 80 90 A10 10 0 0 0 100 90 V25 C100 11.2 88.8 0 75 0 Z",
+  capsuleCross:
+    "M25 0 H75 C80.5 0 85 4.5 85 10 V15 H90 C95.5 15 100 19.5 100 25 V75 C100 80.5 95.5 85 90 85 H85 V90 C85 95.5 80.5 100 75 100 H25 C19.5 100 15 95.5 15 90 V85 H10 C4.5 85 0 80.5 0 75 V25 C0 19.5 4.5 15 10 15 H15 V10 C15 4.5 19.5 0 25 0 Z",
 } as const;
 
-type Shape = (typeof shapeRows)[number][number];
+type Shape = (typeof shapeRows)[number][number] | "hourglass" | "capsuleCross";
+const greenShapes = ["flower", "arch", "hourglass", "capsuleCross"] as const;
 
 function ShapeIcon({ shape }: { shape: Shape }) {
   return (
@@ -70,11 +73,19 @@ function ShapeIcon({ shape }: { shape: Shape }) {
         <circle cx="50" cy="50" r="49" />
       ) : shape === "square" ? (
         <rect x="1" y="1" width="98" height="98" rx="31" />
+      ) : shape === "hourglass" ? (
+        <>
+          <g fill="var(--outline-pink)" stroke="none">
+            <ellipse cx="50" cy="29" rx="49" ry="25" />
+            <ellipse cx="50" cy="71" rx="49" ry="25" />
+          </g>
+          <g fill="none">
+            <ellipse cx="50" cy="29" rx="49" ry="25" />
+            <ellipse cx="50" cy="71" rx="49" ry="25" />
+          </g>
+        </>
       ) : (
-        <path
-          d={shapePaths[shape]}
-          transform={shape === "flower" ? "translate(-3 -2) scale(1.24)" : undefined}
-        />
+        <path d={shapePaths[shape]} />
       )}
     </svg>
   );
@@ -176,8 +187,37 @@ export default function Home() {
               </div>
             </section>
 
-            <section className={styles.introPanel} aria-label="Bienvenida">
-              <div className={styles.creamPiece} aria-hidden="true" />
+            <section className={styles.introPanel} aria-labelledby="intro-title">
+              <div className={styles.greenShapeRow} aria-hidden="true">
+                {greenShapes.map((shape) => (
+                  <span className={styles.shape} key={shape} data-shape={shape}>
+                    <ShapeIcon shape={shape} />
+                  </span>
+                ))}
+              </div>
+              <div className={styles.creamPiece}>
+                <svg
+                  className={styles.creamArcText}
+                  viewBox="0 0 1000 1000"
+                  role="img"
+                  aria-label="Crecer con confianza"
+                >
+                  <defs>
+                    <path id="cream-title-arc" d="M70 500 A430 430 0 0 1 930 500" />
+                  </defs>
+                  <text className={styles.creamArcLabel}>
+                    <textPath href="#cream-title-arc" startOffset="50%" textAnchor="middle">
+                      Crecer con confianza
+                    </textPath>
+                  </text>
+                </svg>
+                <p className={styles.creamCopy}>
+                  Un espacio para descubrir emociones, aprender y crecer con acompañamiento cercano.
+                </p>
+              </div>
+              <h2 id="intro-title" className={`${styles.title} ${styles.introTitle}`}>
+                Lorem ipsum
+              </h2>
             </section>
 
             <section id="proyecto" className={styles.upper} aria-labelledby="page-title">
