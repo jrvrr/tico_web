@@ -196,24 +196,32 @@ export default function Home() {
                 ))}
               </div>
               <div className={styles.creamPiece}>
+                <div className={styles.creamTwinPiece} aria-hidden="true">
+                  <svg viewBox="0 0 220 350">
+                    <circle className={styles.creamTwinBottom} cx="110" cy="240" r="110" />
+                    <circle className={styles.creamTwinTop} cx="110" cy="110" r="110" />
+                  </svg>
+                </div>
                 <svg
                   className={styles.creamArcText}
                   viewBox="0 0 1000 1000"
                   role="img"
-                  aria-label="Crecer con confianza"
+                  aria-label="Texto 1, a, Texto 2, and, Texto 3, Texto 4"
                 >
                   <defs>
-                    <path id="cream-title-arc" d="M70 500 A430 430 0 0 1 930 500" />
+                    <path id="cream-title-arc" d="M142 500 A358 358 0 0 1 858 500" />
                   </defs>
                   <text className={styles.creamArcLabel}>
                     <textPath href="#cream-title-arc" startOffset="50%" textAnchor="middle">
-                      Crecer con confianza
+                      <tspan className={styles.creamArcHeavy}>Texto 1</tspan>
+                      <tspan className={styles.creamArcItalic} dx="32">a</tspan>
+                      <tspan className={styles.creamArcSerif} dx="32">Texto 2</tspan>
+                      <tspan className={styles.creamArcItalic} dx="32">and</tspan>
+                      <tspan className={styles.creamArcHeavy} dx="32">Texto 3</tspan>
+                      <tspan className={styles.creamArcPink} dx="32">Texto 4</tspan>
                     </textPath>
                   </text>
                 </svg>
-                <p className={styles.creamCopy}>
-                  Un espacio para descubrir emociones, aprender y crecer con acompañamiento cercano.
-                </p>
               </div>
               <h2 id="intro-title" className={`${styles.title} ${styles.introTitle}`}>
                 Lorem ipsum

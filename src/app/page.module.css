@@ -247,6 +247,30 @@
   background: radial-gradient(circle at 50% 0, var(--fond) 24px, transparent 25px) 0 0 / 50px 25px repeat-x;
 }
 
+.creamTwinPiece {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  z-index: 1;
+  width: 29%;
+  aspect-ratio: 220 / 350;
+  transform: translate(-50%, -50%);
+}
+
+.creamTwinPiece svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.creamTwinBottom {
+  fill: #93bd37;
+}
+
+.creamTwinTop {
+  fill: #9fc43e;
+}
+
 .creamArcText {
   position: absolute;
   top: calc(-1 * min(50vw, 50cqw));
@@ -259,11 +283,36 @@
 }
 
 .creamArcLabel {
-  fill: var(--deep-blue);
-  font-family: var(--font-family);
-  font-size: clamp(24px, 3.2cqw, 48px);
+  font-family: "Palatino Linotype", "Book Antiqua", Georgia, serif;
+  font-size: 62px;
   font-weight: 700;
   letter-spacing: 0.02em;
+}
+
+.creamArcHeavy {
+  fill: #000;
+  font-weight: 900;
+  stroke: #000;
+  stroke-width: 1px;
+  paint-order: stroke fill;
+}
+
+.creamArcSerif {
+  fill: #ffbf2f;
+  font-weight: 400;
+}
+
+.creamArcItalic {
+  fill: #000;
+  font-style: italic;
+  font-weight: 400;
+}
+
+.creamArcPink {
+  fill: #f879a4;
+  font-family: Georgia, "Times New Roman", serif;
+  font-style: italic;
+  font-weight: 700;
 }
 
 .creamCopy {
