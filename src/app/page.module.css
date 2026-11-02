@@ -280,6 +280,9 @@
   width: 100%;
   aspect-ratio: 1;
   overflow: visible;
+  transform: rotate(var(--arc-rotation, 0deg));
+  transform-box: view-box;
+  transform-origin: center;
 }
 
 .creamArcLabel {
@@ -317,7 +320,9 @@
 
 .creamCopy {
   position: absolute;
-  top: calc(-1 * min(25vw, 25cqw));
+  display: grid;
+  gap: 18px;
+  top: calc(35.8cqw + clamp(18px, 4cqw, 36px));
   left: 50%;
   z-index: 2;
   width: min(72%, 700px);
@@ -329,13 +334,34 @@
   text-align: center;
 }
 
-.introTitle {
-  position: absolute;
-  top: clamp(60px, 4vw, 80px);
-  left: 50%;
-  z-index: 2;
-  width: min(90%, 900px);
-  transform: translateX(-50%);
+.creamCopy p {
+  margin: 0;
+}
+
+.introButton {
+  display: inline-flex;
+  min-width: 150px;
+  min-height: 40px;
+  align-items: center;
+  justify-content: center;
+  padding: 7px 18px;
+  border: 2px solid var(--outline-pink);
+  border-radius: 999px;
+  background: #9fc43e;
+  color: #26340b;
+  font-size: 14px;
+  font-weight: 700;
+  text-decoration: none;
+  justify-self: center;
+}
+
+.introButton:hover {
+  background: #acd34a;
+}
+
+.introButton:focus-visible {
+  outline: 3px solid #12374a;
+  outline-offset: 3px;
 }
 
 .heroTitle {
@@ -549,6 +575,12 @@
   height: 30px;
   background: radial-gradient(circle at 50% 100%, var(--deep-blue) 29px, transparent 30px) 0 0 / 59px 30px repeat-x;
   content: "";
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .creamArcText {
+    transform: none;
+  }
 }
 
 @media (min-width: 701px) {
@@ -801,12 +833,6 @@
   .introPanel {
     height: 1000px;
     margin-top: 96px;
-  }
-
-  .introTitle {
-    top: clamp(52px, 9vw, 72px);
-    width: calc(100% - 96px);
-    font-size: clamp(1.5rem, 7vw, 2.5rem);
   }
 
   .creamPiece {

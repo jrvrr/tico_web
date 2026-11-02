@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useState, type FormEvent } from "react";
+import { useEffect, useRef, useState, type FormEvent } from "react";
 import { sileo, Toaster } from "sileo";
 import "sileo/styles.css";
 import styles from "./page.module.css";
@@ -95,6 +95,34 @@ export default function Home() {
   const [values, setValues] = useState<Values>(initialValues);
   const [errors, setErrors] = useState<Errors>({});
   const [validated, setValidated] = useState(false);
+  const introPanelRef = useRef<HTMLElement | null>(null);
+
+  useEffect(() => {
+    const panel = introPanelRef.current;
+    if (!panel) return;
+
+    let frame = 0;
+    function updateRotation() {
+      cancelAnimationFrame(frame);
+      frame = requestAnimationFrame(() => {
+        const { top, height } = panel.getBoundingClientRect();
+        const progress = Math.max(
+          0,
+          Math.min(1, (window.innerHeight - top) / (window.innerHeight + height)),
+        );
+        panel.style.setProperty("--arc-rotation", `${progress * 360}deg`);
+      });
+    }
+
+    updateRotation();
+    window.addEventListener("scroll", updateRotation, { passive: true });
+    window.addEventListener("resize", updateRotation);
+    return () => {
+      cancelAnimationFrame(frame);
+      window.removeEventListener("scroll", updateRotation);
+      window.removeEventListener("resize", updateRotation);
+    };
+  }, []);
 
   function update(field: Field, value: string) {
     setValues((current) => ({ ...current, [field]: value }));
@@ -187,7 +215,7 @@ export default function Home() {
               </div>
             </section>
 
-            <section className={styles.introPanel} aria-labelledby="intro-title">
+            <section ref={introPanelRef} className={styles.introPanel} aria-label="Lorem ipsum">
               <div className={styles.greenShapeRow} aria-hidden="true">
                 {greenShapes.map((shape) => (
                   <span className={styles.shape} key={shape} data-shape={shape}>
@@ -222,10 +250,17 @@ export default function Home() {
                     </textPath>
                   </text>
                 </svg>
+                <div className={styles.creamCopy}>
+                  <p>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lacus
+                    parturient ridiculus himenaeos, tellus taciti laoreet ultricies.
+                    Porttitor vehicula dapibus torquent posuere vivamus malesuada.
+                  </p>
+                  <a className={styles.introButton} href="#proyecto">
+                    Conoce el proyecto
+                  </a>
+                </div>
               </div>
-              <h2 id="intro-title" className={`${styles.title} ${styles.introTitle}`}>
-                Lorem ipsum
-              </h2>
             </section>
 
             <section id="proyecto" className={styles.upper} aria-labelledby="page-title">
