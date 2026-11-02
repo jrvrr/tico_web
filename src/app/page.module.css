@@ -186,7 +186,7 @@
 .introPanel {
   position: relative;
   container-type: inline-size;
-  height: 2000px;
+  height: 2500px;
   margin-top: 128px;
   overflow: hidden;
   background: #fdfaf2;
@@ -219,7 +219,7 @@
   bottom: 85px;
   left: 50%;
   z-index: 1;
-  width: min(82%, 1550px);
+  width: min(90%, 1700px);
   container-type: inline-size;
   transform: translateX(-50%);
   background: var(--fond);
@@ -247,28 +247,82 @@
   background: radial-gradient(circle at 50% 0, var(--fond) 24px, transparent 25px) 0 0 / 50px 25px repeat-x;
 }
 
-.creamArcText {
+.creamTwinPiece {
   position: absolute;
-  top: calc(-1 * min(50vw, 50cqw));
-  left: 0;
-  z-index: 2;
+  top: -10cqw;
+  left: 50%;
+  z-index: 1;
+  width: clamp(64px, 16%, 225px);
+  aspect-ratio: 220 / 350;
+  transform: translate(-50%, -50%);
+}
+
+.creamTwinPiece svg {
   display: block;
   width: 100%;
+  height: 100%;
+}
+
+.creamTwinBottom {
+  fill: #93bd37;
+}
+
+.creamTwinTop {
+  fill: #9fc43e;
+}
+
+.creamArcText {
+  position: absolute;
+  top: -45cqw;
+  left: 50%;
+  z-index: 2;
+  display: block;
+  width: 70%;
   aspect-ratio: 1;
   overflow: visible;
+  transform: translateX(-50%) rotate(var(--arc-rotation, 0deg));
+  transform-box: view-box;
+  transform-origin: center;
 }
 
 .creamArcLabel {
-  fill: var(--deep-blue);
-  font-family: var(--font-family);
-  font-size: clamp(24px, 3.2cqw, 48px);
+  font-family: "Palatino Linotype", "Book Antiqua", Georgia, serif;
+  font-size: 62px;
   font-weight: 700;
   letter-spacing: 0.02em;
 }
 
+.creamArcHeavy {
+  fill: #000;
+  font-weight: 900;
+  stroke: #000;
+  stroke-width: 1px;
+  paint-order: stroke fill;
+}
+
+.creamArcSerif {
+  fill: #ffbf2f;
+  font-weight: 400;
+}
+
+.creamArcItalic {
+  fill: #000;
+  font-style: italic;
+  font-weight: 400;
+}
+
+.creamArcPink {
+  fill: #f879a4;
+  font-family: Georgia, "Times New Roman", serif;
+  font-style: italic;
+  font-weight: 700;
+}
+
 .creamCopy {
   position: absolute;
-  top: calc(-1 * min(25vw, 25cqw));
+  display: grid;
+  gap: clamp(24px, 3cqw, 40px);
+  top: calc(21cqw + clamp(18px, 2cqw, 28px));
   left: 50%;
   z-index: 2;
   width: min(72%, 700px);
@@ -280,13 +334,34 @@
   text-align: center;
 }
 
-.introTitle {
-  position: absolute;
-  top: clamp(60px, 4vw, 80px);
-  left: 50%;
-  z-index: 2;
-  width: min(90%, 900px);
-  transform: translateX(-50%);
+.creamCopy p {
+  margin: 0;
+}
+
+.introButton {
+  display: inline-flex;
+  min-width: 150px;
+  min-height: 40px;
+  align-items: center;
+  justify-content: center;
+  padding: 7px 18px;
+  border: 2px solid var(--outline-pink);
+  border-radius: 999px;
+  background: #9fc43e;
+  color: #26340b;
+  font-size: 14px;
+  font-weight: 700;
+  text-decoration: none;
+  justify-self: center;
+}
+
+.introButton:hover {
+  background: #acd34a;
+}
+
+.introButton:focus-visible {
+  outline: 3px solid #12374a;
+  outline-offset: 3px;
 }
 
 .heroTitle {
@@ -500,6 +575,12 @@
   height: 30px;
   background: radial-gradient(circle at 50% 100%, var(--deep-blue) 29px, transparent 30px) 0 0 / 59px 30px repeat-x;
   content: "";
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .creamArcText {
+    transform: translateX(-50%);
+  }
 }
 
 @media (min-width: 701px) {
@@ -750,18 +831,12 @@
   }
 
   .introPanel {
-    height: 1000px;
+    height: 1500px;
     margin-top: 96px;
   }
 
-  .introTitle {
-    top: clamp(52px, 9vw, 72px);
-    width: calc(100% - 96px);
-    font-size: clamp(1.5rem, 7vw, 2.5rem);
-  }
-
   .creamPiece {
-    width: calc(100% - 96px);
+    width: calc(100% - 48px);
   }
 
   .greenShapeRow {

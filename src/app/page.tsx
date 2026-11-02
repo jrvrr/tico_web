@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useState, type FormEvent } from "react";
+import { useEffect, useRef, useState, type FormEvent } from "react";
 import { sileo, Toaster } from "sileo";
 import "sileo/styles.css";
 import styles from "./page.module.css";
@@ -95,6 +95,39 @@ export default function Home() {
   const [values, setValues] = useState<Values>(initialValues);
   const [errors, setErrors] = useState<Errors>({});
   const [validated, setValidated] = useState(false);
+  const introPanelRef = useRef<HTMLElement | null>(null);
+
+  useEffect(() => {
+    let frame = 0;
+    function updateRotation() {
+      const panel = introPanelRef.current;
+      if (!panel) return;
+
+      cancelAnimationFrame(frame);
+      frame = requestAnimationFrame(() => {
+        const { top, height } = panel.getBoundingClientRect();
+        const progress = Math.max(
+          0,
+          Math.min(1, (window.innerHeight - top) / (window.innerHeight + height)),
+        );
+        const alignedProgress = window.innerHeight / (window.innerHeight + height);
+        const rotationProgress = Math.max(
+          0,
+          Math.min(1, (progress - alignedProgress) / (1 - alignedProgress)),
+        );
+        panel.style.setProperty("--arc-rotation", `${rotationProgress * 360}deg`);
+      });
+    }
+
+    updateRotation();
+    window.addEventListener("scroll", updateRotation, { passive: true });
+    window.addEventListener("resize", updateRotation);
+    return () => {
+      cancelAnimationFrame(frame);
+      window.removeEventListener("scroll", updateRotation);
+      window.removeEventListener("resize", updateRotation);
+    };
+  }, []);
 
   function update(field: Field, value: string) {
     setValues((current) => ({ ...current, [field]: value }));
@@ -187,7 +220,7 @@ export default function Home() {
               </div>
             </section>
 
-            <section className={styles.introPanel} aria-labelledby="intro-title">
+            <section ref={introPanelRef} className={styles.introPanel} aria-label="Lorem ipsum">
               <div className={styles.greenShapeRow} aria-hidden="true">
                 {greenShapes.map((shape) => (
                   <span className={styles.shape} key={shape} data-shape={shape}>
@@ -196,28 +229,43 @@ export default function Home() {
                 ))}
               </div>
               <div className={styles.creamPiece}>
+                <div className={styles.creamTwinPiece} aria-hidden="true">
+                  <svg viewBox="0 0 220 350">
+                    <circle className={styles.creamTwinBottom} cx="110" cy="240" r="110" />
+                    <circle className={styles.creamTwinTop} cx="110" cy="110" r="110" />
+                  </svg>
+                </div>
                 <svg
                   className={styles.creamArcText}
                   viewBox="0 0 1000 1000"
                   role="img"
-                  aria-label="Crecer con confianza"
+                  aria-label="Texto 1, a, Texto 2, and, Texto 3, Texto 4"
                 >
                   <defs>
-                    <path id="cream-title-arc" d="M70 500 A430 430 0 0 1 930 500" />
+                    <path id="cream-title-arc" d="M142 500 A358 358 0 0 0 858 500" />
                   </defs>
                   <text className={styles.creamArcLabel}>
                     <textPath href="#cream-title-arc" startOffset="50%" textAnchor="middle">
-                      Crecer con confianza
+                      <tspan className={styles.creamArcHeavy}>Texto 1</tspan>
+                      <tspan className={styles.creamArcItalic} dx="32">a</tspan>
+                      <tspan className={styles.creamArcSerif} dx="32">Texto 2</tspan>
+                      <tspan className={styles.creamArcItalic} dx="32">and</tspan>
+                      <tspan className={styles.creamArcHeavy} dx="32">Texto 3</tspan>
+                      <tspan className={styles.creamArcPink} dx="32">Texto 4</tspan>
                     </textPath>
                   </text>
                 </svg>
-                <p className={styles.creamCopy}>
-                  Un espacio para descubrir emociones, aprender y crecer con acompañamiento cercano.
-                </p>
+                <div className={styles.creamCopy}>
+                  <p>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lacus
+                    parturient ridiculus himenaeos, tellus taciti laoreet ultricies.
+                    Porttitor vehicula dapibus torquent posuere vivamus malesuada.
+                  </p>
+                  <a className={styles.introButton} href="#proyecto">
+                    Conoce el proyecto
+                  </a>
+                </div>
               </div>
-              <h2 id="intro-title" className={`${styles.title} ${styles.introTitle}`}>
-                Lorem ipsum
-              </h2>
             </section>
 
             <section id="proyecto" className={styles.upper} aria-labelledby="page-title">
