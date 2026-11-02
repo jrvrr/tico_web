@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useState, type FormEvent } from "react";
+import { useEffect, useRef, useState, type FormEvent } from "react";
 import { sileo, Toaster } from "sileo";
 import "sileo/styles.css";
 import styles from "./page.module.css";
@@ -27,7 +27,7 @@ function validate(values: Values): Errors {
   if (!name) errors.name = "Escribe tu nombre completo.";
   else if (name.length < 3 || name.length > 100 || name.split(/\s+/).length < 2)
     errors.name = "Escribe nombre y apellido (entre 3 y 100 caracteres).";
-  else if (!/^[\p{L}\p{M}'’.\- ]+$/u.test(name))
+  else if (!/^[\p{L}\p{M}'’. \-]+$/u.test(name))
     errors.name = "Usa solo letras y signos propios de un nombre.";
 
   if (!email) errors.email = "Escribe tu correo de contacto.";
@@ -44,7 +44,6 @@ function validate(values: Values): Errors {
 
   return errors;
 }
-
 function validateField(field: Field, value: string) {
   return validate({ ...initialValues, [field]: value })[field];
 }
@@ -85,6 +84,34 @@ export default function Home() {
   const [values, setValues] = useState<Values>(initialValues);
   const [errors, setErrors] = useState<Errors>({});
   const [validated, setValidated] = useState(false);
+  const introPanelRef = useRef<HTMLElement | null>(null);
+
+  useEffect(() => {
+    let frame = 0;
+    function updateRotation() {
+      const panel = introPanelRef.current;
+      if (!panel) return;
+
+      cancelAnimationFrame(frame);
+      frame = requestAnimationFrame(() => {
+        const { top, height } = panel.getBoundingClientRect();
+        const progress = Math.max(
+          0,
+          Math.min(1, (window.innerHeight - top) / (window.innerHeight + height)),
+        );
+        panel.style.setProperty("--arc-rotation", `${progress * 360}deg`);
+      });
+    }
+
+    updateRotation();
+    window.addEventListener("scroll", updateRotation, { passive: true });
+    window.addEventListener("resize", updateRotation);
+    return () => {
+      cancelAnimationFrame(frame);
+      window.removeEventListener("scroll", updateRotation);
+      window.removeEventListener("resize", updateRotation);
+    };
+  }, []);
 
   function update(field: Field, value: string) {
     setValues((current) => ({ ...current, [field]: value }));
@@ -108,9 +135,11 @@ export default function Home() {
     event.preventDefault();
     const nextErrors = validate(values);
     const emailInput = event.currentTarget.elements.namedItem("email") as HTMLInputElement;
+
     if (!nextErrors.email && emailInput.validity.typeMismatch) {
       nextErrors.email = "Escribe un correo válido, por ejemplo nombre@dominio.com.";
     }
+
     setErrors(nextErrors);
     setValidated(Object.keys(nextErrors).length === 0);
 
@@ -134,14 +163,24 @@ export default function Home() {
         <div className={styles.heroBody}>
           <div className={styles.heroCopy}>
             <h1 className={styles.heroTitle}>
-              Jugar para explorar. Tecnología para<br className={styles.desktopBreak} /> acompañar.
+              Jugar para explorar. Tecnología para
+              <br className={styles.desktopBreak} /> acompañar.
             </h1>
             <p className={styles.heroSubtitle}>
-              Software de apoyo para el estudio<br /> y seguimiento del TDO
+              Software de apoyo para el estudio
+              <br /> y seguimiento del TDO
             </p>
-            <a className={styles.heroButton} href="#proyecto">Conoce más del proyecto</a>
+            <a className={styles.heroButton} href="#proyecto">
+              Conoce más del proyecto
+            </a>
           </div>
-          <Image className={styles.robot} src="/assets/png/tico.png" alt="Tico" width={180} height={224} />
+          <Image
+            className={styles.robot}
+            src="/assets/png/tico.png"
+            alt="Tico"
+            width={180}
+            height={224}
+          />
         </div>
       </header>
 
@@ -162,92 +201,157 @@ export default function Home() {
           </div>
         </section>
 
-        <section className={styles.introPanel} aria-label="Bienvenida">
+        <section
+          ref={introPanelRef}
+          className={styles.introPanel}
+          aria-label="Bienvenida"
+        >
           <div className={styles.creamPiece} aria-hidden="true" />
         </section>
 
-      <section id="proyecto" className={styles.upper} aria-labelledby="page-title">
-        <h2 id="page-title" className={styles.title}>
-          Alianzas que transforman
-        </h2>
+          <section id="proyecto" className={styles.upper} aria-labelledby="page-title">
+            <h2 id="page-title" className={styles.title}>
+              Alianzas que transforman
+            </h2>
 
-        <div className={styles.content}>
-          <div className={styles.flower}>
-            <svg className={styles.flowerShape} viewBox="0 0 296 296" aria-hidden="true">
-              <rect x="37" y="37" width="222" height="222" />
-              {[37, 111, 185, 259].map((x) => (
-                <g key={x}>
-                  <circle cx={x} cy="37" r="37" />
-                  <circle cx={x} cy="259" r="37" />
-                </g>
-              ))}
-              {[111, 185].map((y) => (
-                <g key={y}>
-                  <circle cx="37" cy={y} r="37" />
-                  <circle cx="259" cy={y} r="37" />
-                </g>
-              ))}
-            </svg>
-            <div className={styles.flowerCopy}>
-              <p>
-                Buscamos conectar con mentes y organizaciones que compartan
-                nuestro deseo de mejorar la salud mental infantil.
-              </p>
-              <p>
-                Si nuestra visión resuena contigo, exploremos cómo podemos
-                colaborar.
-              </p>
+            <div className={styles.content}>
+              <div className={styles.flower}>
+                <svg className={styles.flowerShape} viewBox="0 0 296 296" aria-hidden="true">
+                  <rect x="37" y="37" width="222" height="222" />
+                  {[37, 111, 185, 259].map((x) => (
+                    <g key={x}>
+                      <circle cx={x} cy="37" r="37" />
+                      <circle cx={x} cy="259" r="37" />
+                    </g>
+                  ))}
+                  {[111, 185].map((y) => (
+                    <g key={y}>
+                      <circle cx="37" cy={y} r="37" />
+                      <circle cx="259" cy={y} r="37" />
+                    </g>
+                  ))}
+                </svg>
+                <div className={styles.flowerCopy}>
+                  <p>
+                    Buscamos conectar con mentes y organizaciones que compartan
+                    nuestro deseo de mejorar la salud mental infantil.
+                  </p>
+                  <p>
+                    Si nuestra visión resuena contigo, exploremos cómo podemos
+                    colaborar.
+                  </p>
+                </div>
+              </div>
+
+              <form
+                id="equipo"
+                className={styles.paper}
+                onSubmit={handleSubmit}
+                noValidate
+                aria-labelledby="form-title"
+              >
+                <h3 id="form-title" className={styles.formTitle}>
+                  Formulario
+                </h3>
+
+                <div className={styles.field}>
+                  <label htmlFor="name">Nombre completo</label>
+                  <input
+                    id="name"
+                    name="name"
+                    autoComplete="name"
+                    required
+                    minLength={3}
+                    maxLength={100}
+                    value={values.name}
+                    onChange={(event) => update("name", event.target.value)}
+                    onBlur={() => validateOnBlur("name")}
+                    aria-invalid={Boolean(errors.name)}
+                    aria-describedby={errors.name ? "name-error" : undefined}
+                  />
+                  {errors.name && (
+                    <span id="name-error" className={styles.error}>
+                      {errors.name}
+                    </span>
+                  )}
+                </div>
+
+                <div className={styles.field}>
+                  <label htmlFor="email">Correo de contacto</label>
+                  <input
+                    id="email"
+                    name="email"
+                    type="email"
+                    autoComplete="email"
+                    required
+                    maxLength={254}
+                    value={values.email}
+                    onChange={(event) => update("email", event.target.value)}
+                    onBlur={() => validateOnBlur("email")}
+                    aria-invalid={Boolean(errors.email)}
+                    aria-describedby={errors.email ? "email-error" : undefined}
+                  />
+                  {errors.email && (
+                    <span id="email-error" className={styles.error}>
+                      {errors.email}
+                    </span>
+                  )}
+                </div>
+
+                <div className={styles.field}>
+                  <label htmlFor="interest">Área de interés</label>
+                  <input
+                    id="interest"
+                    name="interest"
+                    required
+                    minLength={3}
+                    maxLength={120}
+                    value={values.interest}
+                    onChange={(event) => update("interest", event.target.value)}
+                    onBlur={() => validateOnBlur("interest")}
+                    aria-invalid={Boolean(errors.interest)}
+                    aria-describedby={errors.interest ? "interest-error" : undefined}
+                  />
+                  {errors.interest && (
+                    <span id="interest-error" className={styles.error}>
+                      {errors.interest}
+                    </span>
+                  )}
+                </div>
+
+                <div className={styles.field}>
+                  <label htmlFor="message">Mensaje</label>
+                  <textarea
+                    id="message"
+                    name="message"
+                    required
+                    minLength={10}
+                    maxLength={1000}
+                    rows={2}
+                    value={values.message}
+                    onChange={(event) => update("message", event.target.value)}
+                    onBlur={() => validateOnBlur("message")}
+                    aria-invalid={Boolean(errors.message)}
+                    aria-describedby={errors.message ? "message-error" : undefined}
+                  />
+                  {errors.message && (
+                    <span id="message-error" className={styles.error}>
+                      {errors.message}
+                    </span>
+                  )}
+                </div>
+
+                <button className={styles.submit} type="submit">
+                  Enviar
+                </button>
+                {validated && (
+                  <p className={styles.status} role="status">
+                    Datos válidos. El formulario está listo para conectar el envío.
+                  </p>
+                )}
+              </form>
             </div>
-          </div>
-
-          <form id="equipo" className={styles.paper} onSubmit={handleSubmit} noValidate aria-labelledby="form-title">
-            <h3 id="form-title" className={styles.formTitle}>Formulario</h3>
-
-            <div className={styles.field}>
-              <label htmlFor="name">Nombre completo</label>
-              <input id="name" name="name" autoComplete="name" required minLength={3} maxLength={100}
-                value={values.name} onChange={(event) => update("name", event.target.value)}
-                onBlur={() => validateOnBlur("name")}
-                aria-invalid={Boolean(errors.name)} aria-describedby={errors.name ? "name-error" : undefined} />
-              {errors.name && <span id="name-error" className={styles.error}>{errors.name}</span>}
-            </div>
-
-            <div className={styles.field}>
-              <label htmlFor="email">Correo de contacto</label>
-              <input id="email" name="email" type="email" autoComplete="email" required maxLength={254}
-                value={values.email} onChange={(event) => update("email", event.target.value)}
-                onBlur={() => validateOnBlur("email")}
-                aria-invalid={Boolean(errors.email)} aria-describedby={errors.email ? "email-error" : undefined} />
-              {errors.email && <span id="email-error" className={styles.error}>{errors.email}</span>}
-            </div>
-
-            <div className={styles.field}>
-              <label htmlFor="interest">Área de interés</label>
-              <input id="interest" name="interest" required minLength={3} maxLength={120}
-                value={values.interest} onChange={(event) => update("interest", event.target.value)}
-                onBlur={() => validateOnBlur("interest")}
-                aria-invalid={Boolean(errors.interest)} aria-describedby={errors.interest ? "interest-error" : undefined} />
-              {errors.interest && <span id="interest-error" className={styles.error}>{errors.interest}</span>}
-            </div>
-
-            <div className={styles.field}>
-              <label htmlFor="message">Mensaje</label>
-              <textarea id="message" name="message" required minLength={10} maxLength={1000} rows={2}
-                value={values.message} onChange={(event) => update("message", event.target.value)}
-                onBlur={() => validateOnBlur("message")}
-                aria-invalid={Boolean(errors.message)} aria-describedby={errors.message ? "message-error" : undefined} />
-              {errors.message && <span id="message-error" className={styles.error}>{errors.message}</span>}
-            </div>
-
-            <button className={styles.submit} type="submit">Enviar</button>
-            {validated && (
-              <p className={styles.status} role="status">
-                Datos válidos. El formulario está listo para conectar el envío.
-              </p>
-            )}
-          </form>
-        </div>
-      </section>
+          </section>
       </main>
       <footer className={styles.footer} aria-label="Pie de página" />
     </div>
