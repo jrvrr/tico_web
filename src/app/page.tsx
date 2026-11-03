@@ -66,6 +66,33 @@ const shapePaths = {
 type Shape = (typeof shapeRows)[number][number] | "hourglass" | "capsuleCross";
 const greenShapes = ["flower", "arch", "hourglass", "capsuleCross"] as const;
 
+const carouselSlides = [
+  {
+    theme: "posterPink",
+    category: "TICO · DISEÑO 01",
+    title: "Jugar también es aprender",
+    description: "Un espacio para descubrir, crear y crecer.",
+    scene: "scenePlay",
+    visualLabel: "Ilustración de un juguete colorido",
+  },
+  {
+    theme: "posterBlue",
+    category: "TICO · DISEÑO 02",
+    title: "Ideas que toman forma",
+    description: "Pequeños momentos que abren nuevas posibilidades.",
+    scene: "sceneIdeas",
+    visualLabel: "Ilustración de formas y plantas",
+  },
+  {
+    theme: "posterYellow",
+    category: "TICO · DISEÑO 03",
+    title: "Crecer a tu propio ritmo",
+    description: "Acompañar cada paso con imaginación y cariño.",
+    scene: "sceneGrow",
+    visualLabel: "Ilustración de una flor y formas geométricas",
+  },
+] as const;
+
 function ShapeIcon({ shape }: { shape: Shape }) {
   return (
     <svg viewBox="0 0 100 100" aria-hidden="true">
@@ -95,6 +122,7 @@ export default function Home() {
   const [values, setValues] = useState<Values>(initialValues);
   const [errors, setErrors] = useState<Errors>({});
   const [validated, setValidated] = useState(false);
+  const [activeSlide, setActiveSlide] = useState(0);
   const introPanelRef = useRef<HTMLElement | null>(null);
 
   useEffect(() => {
@@ -220,7 +248,11 @@ export default function Home() {
               </div>
             </section>
 
-            <section ref={introPanelRef} className={styles.introPanel} aria-label="Lorem ipsum">
+            <section
+              ref={introPanelRef}
+              className={styles.introPanel}
+              aria-label="Diseños de Tico"
+            >
               <div className={styles.greenShapeRow} aria-hidden="true">
                 {greenShapes.map((shape) => (
                   <span className={styles.shape} key={shape} data-shape={shape}>
@@ -239,7 +271,7 @@ export default function Home() {
                   className={styles.creamArcText}
                   viewBox="0 0 1000 1000"
                   role="img"
-                  aria-label="Texto 1, a, Texto 2, and, Texto 3, Texto 4"
+                  aria-label="Texto decorativo que gira"
                 >
                   <defs>
                     <path id="cream-title-arc" d="M142 500 A358 358 0 0 0 858 500" />
@@ -264,6 +296,116 @@ export default function Home() {
                   <a className={styles.introButton} href="#proyecto">
                     Conoce el proyecto
                   </a>
+                </div>
+                <div className={styles.carouselPanel}>
+                  <div className={styles.carouselHeading}>
+                    <h2>Un mundo de ideas</h2>
+                    <p>Explora los diseños de Tico</p>
+                  </div>
+                  <div
+                    className={styles.carousel}
+                    role="region"
+                    aria-roledescription="carrusel"
+                    aria-label="Diseños de Tico"
+                  >
+                    <div className={styles.carouselViewport}>
+                      {carouselSlides.map((slide, index) => {
+                      const position =
+                        (index - activeSlide + carouselSlides.length) %
+                        carouselSlides.length;
+                      const positionClass =
+                        position === 0
+                          ? styles.carouselSlideActive
+                          : position === 1
+                            ? styles.carouselSlideNext
+                            : styles.carouselSlidePrevious;
+
+                      return (
+                        <article
+                          key={slide.title}
+                          className={`${styles.carouselSlide} ${positionClass}`}
+                          aria-hidden={position !== 0}
+                          aria-roledescription="diapositiva"
+                          aria-label={`${index + 1} de ${carouselSlides.length}: ${slide.title}`}
+                        >
+                          <div className={`${styles.artwork} ${styles[slide.theme]}`}>
+                            <div className={styles.posterSide}>
+                              <span className={styles.posterFlower} aria-hidden="true">✿</span>
+                              <span className={styles.posterCategory}>{slide.category}</span>
+                              <span className={styles.posterNumber}>0{index + 1}</span>
+                            </div>
+                            <div className={styles.posterCopy}>
+                              <span>DESCUBRE CON TICO</span>
+                              <h3>{slide.title}</h3>
+                              <p>{slide.description}</p>
+                            </div>
+                            <div
+                              className={`${styles.posterScene} ${styles[slide.scene]}`}
+                              role="img"
+                              aria-label={slide.visualLabel}
+                            >
+                              <span className={styles.sceneSun} />
+                              <span className={styles.sceneHill} />
+                              <span className={styles.scenePlant} />
+                              <span className={styles.sceneToy}>
+                                <i />
+                                <i />
+                                <i />
+                              </span>
+                              <span className={styles.sceneFlower}>✿</span>
+                            </div>
+                          </div>
+                        </article>
+                      );
+                      })}
+                    </div>
+                    <div className={styles.carouselControls}>
+                      <button
+                      className={styles.carouselArrow}
+                      type="button"
+                      aria-label="Diseño anterior"
+                      onClick={() =>
+                        setActiveSlide((current) =>
+                          (current - 1 + carouselSlides.length) % carouselSlides.length,
+                        )
+                      }
+                      >
+                      <span aria-hidden="true">←</span>
+                      </button>
+                      <div
+                      className={styles.carouselDots}
+                      role="group"
+                      aria-label="Elegir diseño"
+                      >
+                      {carouselSlides.map((slide, index) => (
+                        <button
+                          key={slide.title}
+                          className={`${styles.carouselDot} ${
+                            activeSlide === index ? styles.carouselDotActive : ""
+                          }`}
+                          type="button"
+                          aria-label={`Mostrar diseño ${index + 1}: ${slide.title}`}
+                          aria-current={activeSlide === index ? "true" : undefined}
+                          onClick={() => setActiveSlide(index)}
+                        />
+                      ))}
+                      </div>
+                      <button
+                      className={styles.carouselArrow}
+                      type="button"
+                      aria-label="Diseño siguiente"
+                      onClick={() =>
+                        setActiveSlide((current) => (current + 1) % carouselSlides.length)
+                      }
+                      >
+                      <span aria-hidden="true">→</span>
+                      </button>
+                    </div>
+                    <p className={styles.carouselStatus} aria-live="polite">
+                      Diseño {activeSlide + 1} de {carouselSlides.length}:{" "}
+                      {carouselSlides[activeSlide].title}
+                    </p>
+                  </div>
                 </div>
               </div>
             </section>
