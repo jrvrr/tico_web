@@ -320,12 +320,12 @@
 
 .creamCopy {
   position: absolute;
-  display: grid;
-  gap: clamp(24px, 3cqw, 40px);
   top: calc(21cqw + clamp(18px, 2cqw, 28px));
   left: 50%;
   z-index: 2;
+  display: grid;
   width: min(72%, 700px);
+  gap: clamp(24px, 3cqw, 40px);
   margin: 0;
   transform: translateX(-50%);
   color: #383838;
@@ -362,6 +362,407 @@
 .introButton:focus-visible {
   outline: 3px solid #12374a;
   outline-offset: 3px;
+}
+
+.carouselPanel {
+  position: absolute;
+  top: clamp(450px, 54cqw, 900px);
+  right: 3%;
+  bottom: 40px;
+  left: 3%;
+  z-index: 3;
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr);
+  gap: clamp(12px, 2vw, 24px);
+  padding: 0 clamp(12px, 2vw, 28px) 18px;
+}
+
+.carouselHeading {
+  color: #333;
+  text-align: center;
+}
+
+.carouselHeading h2 {
+  margin: 0;
+  color: var(--deep-blue);
+  font-size: clamp(24px, 3vw, 40px);
+  letter-spacing: 0.06em;
+}
+
+.carouselHeading p {
+  margin: 6px 0 0;
+  font-size: clamp(14px, 1.4vw, 18px);
+}
+
+.carousel {
+  display: grid;
+  min-height: 0;
+  grid-template-rows: minmax(0, 1fr) auto;
+  gap: 12px;
+}
+
+.carouselViewport {
+  position: relative;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.carouselSlide {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: min(78%, 1050px);
+  aspect-ratio: 1.8;
+  transition: transform 450ms ease, opacity 450ms ease;
+}
+
+.carouselSlideActive {
+  z-index: 2;
+  opacity: 1;
+  transform: translate(-50%, -50%);
+}
+
+.carouselSlidePrevious {
+  z-index: 1;
+  opacity: 0.58;
+  transform: translate(-130%, -50%) scale(0.82);
+}
+
+.carouselSlideNext {
+  z-index: 1;
+  opacity: 0.58;
+  transform: translate(30%, -50%) scale(0.82);
+}
+
+.artwork {
+  display: grid;
+  width: 100%;
+  height: 100%;
+  grid-template-columns: 24% 29% 47%;
+  overflow: hidden;
+  border: 7px solid #fff9e9;
+  border-radius: 17px;
+  box-shadow: 0 16px 34px rgb(75 60 32 / 18%);
+}
+
+.posterSide {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+  overflow: hidden;
+  padding: clamp(12px, 2vw, 24px);
+  color: white;
+}
+
+.posterSide::after {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 20px;
+  background: radial-gradient(circle at 50% 0, #fff9e9 13px, transparent 14px) 0 0 / 28px 20px repeat-x;
+  content: "";
+}
+
+.posterFlower {
+  font-size: clamp(36px, 6vw, 84px);
+  line-height: 1;
+}
+
+.posterCategory {
+  max-width: 100%;
+  font-size: clamp(9px, 1vw, 13px);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+
+.posterNumber {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(24px, 4vw, 52px);
+  font-style: italic;
+}
+
+.posterCopy {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: clamp(14px, 2.4vw, 32px);
+  color: white;
+}
+
+.posterCopy > span {
+  font-size: clamp(9px, 0.9vw, 12px);
+  font-weight: 700;
+  letter-spacing: 0.12em;
+}
+
+.posterCopy h3 {
+  margin: 15px 0 10px;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(20px, 3vw, 42px);
+  line-height: 1.04;
+}
+
+.posterCopy p {
+  margin: 0;
+  font-size: clamp(11px, 1.2vw, 16px);
+  line-height: 1.45;
+}
+
+.posterPink .posterSide {
+  background: #e85c86;
+}
+
+.posterPink .posterCopy {
+  background: #38a8c9;
+}
+
+.posterBlue .posterSide {
+  background: #3ca9c5;
+}
+
+.posterBlue .posterCopy {
+  background: #df6688;
+}
+
+.posterYellow .posterSide {
+  background: #e6b83e;
+}
+
+.posterYellow .posterCopy {
+  background: #709b78;
+}
+
+.posterScene {
+  position: relative;
+  overflow: hidden;
+}
+
+.scenePlay {
+  background: linear-gradient(160deg, #f7eedc, #e6dfc9);
+}
+
+.sceneIdeas {
+  background: linear-gradient(145deg, #edf0d8, #b9d9cf);
+}
+
+.sceneGrow {
+  background: linear-gradient(155deg, #e5f2e8, #f3e7c7);
+}
+
+.sceneSun {
+  position: absolute;
+  top: 12%;
+  right: 13%;
+  width: clamp(38px, 8vw, 100px);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: #f8c963;
+}
+
+.sceneHill {
+  position: absolute;
+  right: -15%;
+  bottom: -22%;
+  left: -15%;
+  height: 45%;
+  border-radius: 50% 50% 0 0;
+  background: #b7c98e;
+}
+
+.scenePlant {
+  position: absolute;
+  bottom: 17%;
+  left: 20%;
+  width: 4px;
+  height: 38%;
+  border-radius: 4px;
+  background: #648e60;
+  transform: rotate(-12deg);
+}
+
+.scenePlant::before,
+.scenePlant::after {
+  position: absolute;
+  width: clamp(24px, 4vw, 48px);
+  height: clamp(12px, 2vw, 24px);
+  border-radius: 100% 0 100% 0;
+  background: #7eaa70;
+  content: "";
+}
+
+.scenePlant::before {
+  top: 22%;
+  left: -100%;
+  transform: rotate(-30deg);
+}
+
+.scenePlant::after {
+  top: 48%;
+  left: 0;
+  transform: rotate(20deg) scaleX(-1);
+}
+
+.sceneToy {
+  position: absolute;
+  bottom: 13%;
+  left: 54%;
+  width: 42%;
+  height: 57%;
+  transform: translateX(-50%);
+}
+
+.sceneToy::before {
+  position: absolute;
+  bottom: 0;
+  left: 42%;
+  width: 16%;
+  height: 68%;
+  border-radius: 9px;
+  background: #ee806e;
+  content: "";
+}
+
+.sceneToy::after {
+  position: absolute;
+  bottom: 57%;
+  left: 4%;
+  width: 92%;
+  height: 13%;
+  border-radius: 999px;
+  background: #ee806e;
+  content: "";
+}
+
+.sceneToy i {
+  position: absolute;
+  bottom: 57%;
+  width: 16%;
+  aspect-ratio: 1;
+  border: 6px solid #e85c86;
+  border-radius: 40% 40% 50% 50%;
+  background: #f3c1a8;
+}
+
+.sceneToy i:nth-child(1) {
+  left: 0;
+}
+
+.sceneToy i:nth-child(2) {
+  left: 42%;
+  bottom: 70%;
+}
+
+.sceneToy i:nth-child(3) {
+  right: 0;
+}
+
+.sceneFlower {
+  position: absolute;
+  top: 26%;
+  right: 16%;
+  color: #e85c86;
+  font-size: clamp(22px, 4vw, 48px);
+}
+
+.sceneIdeas .sceneToy {
+  left: 50%;
+  width: 34%;
+  height: 45%;
+}
+
+.sceneIdeas .sceneToy::before {
+  background: #e4a957;
+}
+
+.sceneIdeas .sceneToy::after {
+  background: #e4a957;
+}
+
+.sceneIdeas .sceneToy i {
+  border-color: #3ca9c5;
+}
+
+.sceneGrow .sceneToy {
+  left: 58%;
+  width: 30%;
+  height: 48%;
+}
+
+.sceneGrow .sceneToy::before {
+  background: #729b77;
+}
+
+.sceneGrow .sceneToy::after {
+  background: #729b77;
+}
+
+.sceneGrow .sceneToy i {
+  border-color: #e6b83e;
+}
+
+.carouselControls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+}
+
+.carouselArrow {
+  display: grid;
+  width: 38px;
+  height: 38px;
+  place-items: center;
+  border: 2px solid #53895c;
+  border-radius: 50%;
+  background: transparent;
+  color: #315a39;
+  cursor: pointer;
+  font-size: 20px;
+  line-height: 1;
+}
+
+.carouselArrow:hover {
+  background: #dce8bd;
+}
+
+.carouselArrow:focus-visible,
+.carouselDot:focus-visible {
+  outline: 3px solid #12374a;
+  outline-offset: 3px;
+}
+
+.carouselDots {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+
+.carouselDot {
+  width: 10px;
+  height: 10px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: #b2b99c;
+  cursor: pointer;
+}
+
+.carouselDotActive {
+  width: 25px;
+  border-radius: 999px;
+  background: #53895c;
+}
+
+.carouselStatus {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
 }
 
 .heroTitle {
@@ -578,6 +979,10 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .carouselSlide {
+    transition: none;
+  }
+
   .creamArcText {
     transform: translateX(-50%);
   }
@@ -838,6 +1243,65 @@
   .creamPiece {
     top: calc(50vw + 280px);
     width: calc(100% + 28px);
+  }
+
+  .carouselPanel {
+    top: 450px;
+    right: 2%;
+    bottom: 30px;
+    left: 2%;
+    gap: 12px;
+    padding: 0 4px 14px;
+  }
+
+  .carouselHeading h2 {
+    font-size: clamp(22px, 6vw, 32px);
+  }
+
+  .carouselHeading p {
+    margin-top: 4px;
+    font-size: 13px;
+  }
+
+  .carouselSlide {
+    width: 86%;
+  }
+
+  .carouselSlidePrevious {
+    transform: translate(-137%, -50%) scale(0.78);
+  }
+
+  .carouselSlideNext {
+    transform: translate(37%, -50%) scale(0.78);
+  }
+
+  .artwork {
+    grid-template-columns: 20% 39% 41%;
+    border-width: 4px;
+    border-radius: 12px;
+  }
+
+  .posterSide,
+  .posterCopy {
+    padding: 10px;
+  }
+
+  .posterFlower {
+    font-size: clamp(30px, 9vw, 52px);
+  }
+
+  .posterCategory,
+  .posterCopy > span {
+    font-size: 8px;
+  }
+
+  .posterCopy h3 {
+    margin: 10px 0 8px;
+    font-size: clamp(16px, 4.4vw, 25px);
+  }
+
+  .posterCopy p {
+    font-size: 10px;
   }
 
   .introPanel::before,
