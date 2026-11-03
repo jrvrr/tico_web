@@ -186,7 +186,7 @@
 .introPanel {
   position: relative;
   container-type: inline-size;
-  height: 2500px;
+  height: 2800px;
   margin-top: 128px;
   overflow: hidden;
   background: #fdfaf2;
@@ -195,8 +195,8 @@
 .introPanel::before,
 .introPanel::after {
   position: absolute;
-  right: 20px;
-  left: 20px;
+  right: 14px;
+  left: 14px;
   background: var(--green);
   content: "";
 }
@@ -216,10 +216,10 @@
   position: absolute;
   top: calc(50vw + 360px);
   right: auto;
-  bottom: 85px;
+  bottom: 65px;
   left: 50%;
   z-index: 1;
-  width: min(90%, 1700px);
+  width: min(calc(96% + 60px), 1900px);
   container-type: inline-size;
   transform: translateX(-50%);
   background: var(--fond);
@@ -831,12 +831,19 @@
   }
 
   .introPanel {
-    height: 1500px;
+    height: 1560px;
     margin-top: 96px;
   }
 
   .creamPiece {
-    width: calc(100% - 48px);
+    top: calc(50vw + 280px);
+    width: calc(100% + 28px);
+  }
+
+  .introPanel::before,
+  .introPanel::after {
+    right: 12px;
+    left: 12px;
   }
 
   .greenShapeRow {
