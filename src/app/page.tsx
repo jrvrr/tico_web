@@ -126,6 +126,17 @@ export default function Home() {
   const introPanelRef = useRef<HTMLElement | null>(null);
 
   useEffect(() => {
+    const interval = window.setInterval(() => {
+      const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      if (document.visibilityState === "visible" && !reducedMotion) {
+        setActiveSlide((current) => (current + 1) % carouselSlides.length);
+      }
+    }, 3000);
+
+    return () => window.clearInterval(interval);
+  }, []);
+
+  useEffect(() => {
     let frame = 0;
     function updateRotation() {
       const panel = introPanelRef.current;
@@ -359,52 +370,16 @@ export default function Home() {
                       );
                       })}
                     </div>
-                    <div className={styles.carouselControls}>
-                      <button
-                      className={styles.carouselArrow}
-                      type="button"
-                      aria-label="Diseño anterior"
-                      onClick={() =>
-                        setActiveSlide((current) =>
-                          (current - 1 + carouselSlides.length) % carouselSlides.length,
-                        )
-                      }
-                      >
-                      <span aria-hidden="true">←</span>
-                      </button>
-                      <div
-                      className={styles.carouselDots}
-                      role="group"
-                      aria-label="Elegir diseño"
-                      >
+                    <div className={styles.carouselIndicators} aria-hidden="true">
                       {carouselSlides.map((slide, index) => (
-                        <button
+                        <span
                           key={slide.title}
-                          className={`${styles.carouselDot} ${
-                            activeSlide === index ? styles.carouselDotActive : ""
+                          className={`${styles.carouselIndicator} ${
+                            activeSlide === index ? styles.carouselIndicatorActive : ""
                           }`}
-                          type="button"
-                          aria-label={`Mostrar diseño ${index + 1}: ${slide.title}`}
-                          aria-current={activeSlide === index ? "true" : undefined}
-                          onClick={() => setActiveSlide(index)}
                         />
                       ))}
-                      </div>
-                      <button
-                      className={styles.carouselArrow}
-                      type="button"
-                      aria-label="Diseño siguiente"
-                      onClick={() =>
-                        setActiveSlide((current) => (current + 1) % carouselSlides.length)
-                      }
-                      >
-                      <span aria-hidden="true">→</span>
-                      </button>
                     </div>
-                    <p className={styles.carouselStatus} aria-live="polite">
-                      Diseño {activeSlide + 1} de {carouselSlides.length}:{" "}
-                      {carouselSlides[activeSlide].title}
-                    </p>
                   </div>
                 </div>
               </div>

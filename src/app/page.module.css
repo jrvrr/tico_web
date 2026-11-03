@@ -320,7 +320,7 @@
 
 .creamCopy {
   position: absolute;
-  top: calc(21cqw + clamp(18px, 2cqw, 28px));
+  top: calc(21cqw + clamp(13px, 2cqw, 23px));
   left: 50%;
   z-index: 2;
   display: grid;
@@ -366,12 +366,12 @@
 
 .carouselPanel {
   position: absolute;
-  top: clamp(450px, 54cqw, 900px);
+  top: clamp(219px, calc(36cqw - 61px), 539px);
   right: 3%;
-  bottom: 40px;
   left: 3%;
   z-index: 3;
   display: grid;
+  height: clamp(420px, 48cqw, 740px);
   grid-template-rows: auto minmax(0, 1fr);
   gap: clamp(12px, 2vw, 24px);
   padding: 0 clamp(12px, 2vw, 28px) 18px;
@@ -405,6 +405,28 @@
   position: relative;
   min-height: 0;
   overflow: hidden;
+}
+
+.carouselIndicators {
+  display: flex;
+  min-height: 10px;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.carouselIndicator {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #b2b99c;
+  transition: width 250ms ease, background-color 250ms ease;
+}
+
+.carouselIndicatorActive {
+  width: 20px;
+  border-radius: 999px;
+  background: #53895c;
 }
 
 .carouselSlide {
@@ -701,68 +723,6 @@
 
 .sceneGrow .sceneToy i {
   border-color: #e6b83e;
-}
-
-.carouselControls {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 18px;
-}
-
-.carouselArrow {
-  display: grid;
-  width: 38px;
-  height: 38px;
-  place-items: center;
-  border: 2px solid #53895c;
-  border-radius: 50%;
-  background: transparent;
-  color: #315a39;
-  cursor: pointer;
-  font-size: 20px;
-  line-height: 1;
-}
-
-.carouselArrow:hover {
-  background: #dce8bd;
-}
-
-.carouselArrow:focus-visible,
-.carouselDot:focus-visible {
-  outline: 3px solid #12374a;
-  outline-offset: 3px;
-}
-
-.carouselDots {
-  display: flex;
-  align-items: center;
-  gap: 9px;
-}
-
-.carouselDot {
-  width: 10px;
-  height: 10px;
-  padding: 0;
-  border: 0;
-  border-radius: 50%;
-  background: #b2b99c;
-  cursor: pointer;
-}
-
-.carouselDotActive {
-  width: 25px;
-  border-radius: 999px;
-  background: #53895c;
-}
-
-.carouselStatus {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
 }
 
 .heroTitle {
@@ -1246,11 +1206,11 @@
   }
 
   .carouselPanel {
-    top: 450px;
+    top: 295px;
     right: 2%;
-    bottom: 30px;
     left: 2%;
-    gap: 12px;
+    height: clamp(320px, 76cqw, 420px);
+    gap: 4px;
     padding: 0 4px 14px;
   }
 
