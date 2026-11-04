@@ -76,7 +76,7 @@ const carouselSlides = [
     visualLabel: "Ilustración de un juguete colorido",
   },
   {
-    theme: "posterBlue",
+    theme: "posterRose",
     category: "TICO · DISEÑO 02",
     title: "Ideas que toman forma",
     description: "Pequeños momentos que abren nuevas posibilidades.",
