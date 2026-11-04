@@ -68,7 +68,7 @@ const greenShapes = ["flower", "arch", "hourglass", "capsuleCross"] as const;
 
 const carouselSlides = [
   {
-    theme: "posterPink",
+    theme: "posterScallop",
     category: "TICO · DISEÑO 01",
     title: "Jugar también es aprender",
     description: "Un espacio para descubrir, crear y crecer.",
