@@ -68,7 +68,7 @@ const greenShapes = ["flower", "arch", "hourglass", "capsuleCross"] as const;
 
 const carouselSlides = [
   {
-    theme: "posterPink",
+    theme: "posterScallop",
     category: "TICO · DISEÑO 01",
     title: "Jugar también es aprender",
     description: "Un espacio para descubrir, crear y crecer.",
@@ -76,7 +76,7 @@ const carouselSlides = [
     visualLabel: "Ilustración de un juguete colorido",
   },
   {
-    theme: "posterBlue",
+    theme: "posterRose",
     category: "TICO · DISEÑO 02",
     title: "Ideas que toman forma",
     description: "Pequeños momentos que abren nuevas posibilidades.",
@@ -124,6 +124,17 @@ export default function Home() {
   const [validated, setValidated] = useState(false);
   const [activeSlide, setActiveSlide] = useState(0);
   const introPanelRef = useRef<HTMLElement | null>(null);
+
+  useEffect(() => {
+    const interval = window.setInterval(() => {
+      const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      if (document.visibilityState === "visible" && !reducedMotion) {
+        setActiveSlide((current) => (current + 1) % carouselSlides.length);
+      }
+    }, 3000);
+
+    return () => window.clearInterval(interval);
+  }, []);
 
   useEffect(() => {
     let frame = 0;
@@ -251,8 +262,11 @@ export default function Home() {
             <section
               ref={introPanelRef}
               className={styles.introPanel}
-              aria-label="Diseños de Tico"
+              aria-labelledby="intro-title"
             >
+              <h2 id="intro-title" className={styles.introTitle}>
+                Conoce el proyecto
+              </h2>
               <div className={styles.greenShapeRow} aria-hidden="true">
                 {greenShapes.map((shape) => (
                   <span className={styles.shape} key={shape} data-shape={shape}>
@@ -359,52 +373,16 @@ export default function Home() {
                       );
                       })}
                     </div>
-                    <div className={styles.carouselControls}>
-                      <button
-                      className={styles.carouselArrow}
-                      type="button"
-                      aria-label="Diseño anterior"
-                      onClick={() =>
-                        setActiveSlide((current) =>
-                          (current - 1 + carouselSlides.length) % carouselSlides.length,
-                        )
-                      }
-                      >
-                      <span aria-hidden="true">←</span>
-                      </button>
-                      <div
-                      className={styles.carouselDots}
-                      role="group"
-                      aria-label="Elegir diseño"
-                      >
+                    <div className={styles.carouselIndicators} aria-hidden="true">
                       {carouselSlides.map((slide, index) => (
-                        <button
+                        <span
                           key={slide.title}
-                          className={`${styles.carouselDot} ${
-                            activeSlide === index ? styles.carouselDotActive : ""
+                          className={`${styles.carouselIndicator} ${
+                            activeSlide === index ? styles.carouselIndicatorActive : ""
                           }`}
-                          type="button"
-                          aria-label={`Mostrar diseño ${index + 1}: ${slide.title}`}
-                          aria-current={activeSlide === index ? "true" : undefined}
-                          onClick={() => setActiveSlide(index)}
                         />
                       ))}
-                      </div>
-                      <button
-                      className={styles.carouselArrow}
-                      type="button"
-                      aria-label="Diseño siguiente"
-                      onClick={() =>
-                        setActiveSlide((current) => (current + 1) % carouselSlides.length)
-                      }
-                      >
-                      <span aria-hidden="true">→</span>
-                      </button>
                     </div>
-                    <p className={styles.carouselStatus} aria-live="polite">
-                      Diseño {activeSlide + 1} de {carouselSlides.length}:{" "}
-                      {carouselSlides[activeSlide].title}
-                    </p>
                   </div>
                 </div>
               </div>
