@@ -193,6 +193,22 @@
   background: #fdfaf2;
 }
 
+.introTitle {
+  position: absolute;
+  top: clamp(36px, 4vw, 64px);
+  right: 24px;
+  left: 24px;
+  z-index: 3;
+  margin: 0;
+  color: var(--deep-blue);
+  font-family: var(--font-family);
+  font-size: clamp(2rem, 5vw, 3.875rem);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  line-height: 1.15;
+  text-align: center;
+}
+
 .introPanel::before,
 .introPanel::after {
   position: absolute;
@@ -215,12 +231,12 @@
 
 .creamPiece {
   position: absolute;
-  top: calc(50vw + 360px);
+  top: calc(50vw + 430px);
   right: auto;
   bottom: 65px;
   left: 50%;
   z-index: 1;
-  width: min(calc(96% + 60px), 1900px);
+  width: min(calc(100% - 60px), 1900px);
   container-type: inline-size;
   transform: translateX(-50%);
   background: var(--fond);
@@ -1396,8 +1412,8 @@
   }
 
   .creamPiece {
-    top: calc(50vw + 280px);
-    width: calc(100% + 28px);
+    top: calc(50vw + 320px);
+    width: calc(100% - 48px);
   }
 
   .carouselPanel {

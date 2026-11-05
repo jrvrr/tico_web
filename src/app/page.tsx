@@ -262,8 +262,11 @@ export default function Home() {
             <section
               ref={introPanelRef}
               className={styles.introPanel}
-              aria-label="Diseños de Tico"
+              aria-labelledby="intro-title"
             >
+              <h2 id="intro-title" className={styles.introTitle}>
+                Conoce el proyecto
+              </h2>
               <div className={styles.greenShapeRow} aria-hidden="true">
                 {greenShapes.map((shape) => (
                   <span className={styles.shape} key={shape} data-shape={shape}>
