@@ -64,7 +64,12 @@ const shapePaths = {
 } as const;
 
 type Shape = (typeof shapeRows)[number][number] | "hourglass" | "capsuleCross";
-const greenShapes = ["flower", "arch", "hourglass", "capsuleCross"] as const;
+const greenShapes = [
+  { shape: "flower", label: "Empatía" },
+  { shape: "arch", label: "Tecnología" },
+  { shape: "hourglass", label: "Evidencia" },
+  { shape: "capsuleCross", label: "Accesibilidad" },
+] as const;
 
 const carouselSlides = [
   {
@@ -102,7 +107,7 @@ function ShapeIcon({ shape }: { shape: Shape }) {
         <rect x="1" y="1" width="98" height="98" rx="31" />
       ) : shape === "hourglass" ? (
         <>
-          <g fill="var(--outline-pink)" stroke="none">
+          <g fill="var(--value-fill)" stroke="none">
             <ellipse cx="50" cy="29" rx="49" ry="25" />
             <ellipse cx="50" cy="71" rx="49" ry="25" />
           </g>
@@ -265,12 +270,13 @@ export default function Home() {
               aria-labelledby="intro-title"
             >
               <h2 id="intro-title" className={styles.introTitle}>
-                Conoce el proyecto
+                Lo que nos mueve
               </h2>
-              <div className={styles.greenShapeRow} aria-hidden="true">
-                {greenShapes.map((shape) => (
-                  <span className={styles.shape} key={shape} data-shape={shape}>
+              <div className={styles.greenShapeRow} role="group" aria-label="Lo que nos mueve">
+                {greenShapes.map(({ shape, label }) => (
+                  <span className={styles.valueShape} key={shape} data-shape={shape}>
                     <ShapeIcon shape={shape} />
+                    <span className={styles.valueShapeLabel}>{label}</span>
                   </span>
                 ))}
               </div>
