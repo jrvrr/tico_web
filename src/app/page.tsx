@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useRef, useState, type FormEvent } from "react";
+import { useEffect, useState, type FormEvent } from "react";
 import { sileo, Toaster } from "sileo";
 import "sileo/styles.css";
 import styles from "./page.module.css";
@@ -71,6 +71,9 @@ const greenShapes = [
   { shape: "capsuleCross", label: "Accesibilidad" },
 ] as const;
 
+const creamArcTexts = ["JUGAR", "DESCUBRIR", "APRENDER", "ACOMPAÑAR"] as const;
+const creamArcConnectors = ["a", "y"] as const;
+
 const carouselSlides = [
   {
     theme: "posterScallop",
@@ -128,7 +131,6 @@ export default function Home() {
   const [errors, setErrors] = useState<Errors>({});
   const [validated, setValidated] = useState(false);
   const [activeSlide, setActiveSlide] = useState(0);
-  const introPanelRef = useRef<HTMLElement | null>(null);
 
   useEffect(() => {
     const interval = window.setInterval(() => {
@@ -139,38 +141,6 @@ export default function Home() {
     }, 3000);
 
     return () => window.clearInterval(interval);
-  }, []);
-
-  useEffect(() => {
-    let frame = 0;
-    function updateRotation() {
-      const panel = introPanelRef.current;
-      if (!panel) return;
-
-      cancelAnimationFrame(frame);
-      frame = requestAnimationFrame(() => {
-        const { top, height } = panel.getBoundingClientRect();
-        const progress = Math.max(
-          0,
-          Math.min(1, (window.innerHeight - top) / (window.innerHeight + height)),
-        );
-        const alignedProgress = window.innerHeight / (window.innerHeight + height);
-        const rotationProgress = Math.max(
-          0,
-          Math.min(1, (progress - alignedProgress) / (1 - alignedProgress)),
-        );
-        panel.style.setProperty("--arc-rotation", `${rotationProgress * 360}deg`);
-      });
-    }
-
-    updateRotation();
-    window.addEventListener("scroll", updateRotation, { passive: true });
-    window.addEventListener("resize", updateRotation);
-    return () => {
-      cancelAnimationFrame(frame);
-      window.removeEventListener("scroll", updateRotation);
-      window.removeEventListener("resize", updateRotation);
-    };
   }, []);
 
   function update(field: Field, value: string) {
@@ -265,7 +235,6 @@ export default function Home() {
             </section>
 
             <section
-              ref={introPanelRef}
               className={styles.introPanel}
               aria-labelledby="intro-title"
             >
@@ -291,19 +260,64 @@ export default function Home() {
                   className={styles.creamArcText}
                   viewBox="0 0 1000 1000"
                   role="img"
-                  aria-label="Texto decorativo que gira"
+                  aria-label="Jugar a descubrir, aprender y acompañar alrededor de Tico"
                 >
                   <defs>
-                    <path id="cream-title-arc" d="M142 500 A358 358 0 0 0 858 500" />
+                    <path id="cream-title-arc-top" d="M224 224 A390 390 0 0 1 776 224" />
+                    <path id="cream-title-arc-right" d="M776 224 A390 390 0 0 1 776 776" />
+                    <path id="cream-title-arc-bottom" d="M224 776 A390 390 0 0 0 776 776" />
+                    <path id="cream-title-arc-left" d="M224 224 A390 390 0 0 0 224 776" />
+                    <path id="cream-title-connector-top" d="M776 224 A390 390 0 0 1 890 500" />
+                    <path id="cream-title-connector-bottom" d="M139 640 A390 390 0 0 0 351 860" />
                   </defs>
                   <text className={styles.creamArcLabel}>
-                    <textPath href="#cream-title-arc" startOffset="50%" textAnchor="middle">
-                      <tspan className={styles.creamArcHeavy}>Texto 1</tspan>
-                      <tspan className={styles.creamArcItalic} dx="32">a</tspan>
-                      <tspan className={styles.creamArcSerif} dx="32">Texto 2</tspan>
-                      <tspan className={styles.creamArcItalic} dx="32">and</tspan>
-                      <tspan className={styles.creamArcHeavy} dx="32">Texto 3</tspan>
-                      <tspan className={styles.creamArcPink} dx="32">Texto 4</tspan>
+                    <textPath
+                      href="#cream-title-arc-top"
+                      startOffset="50%"
+                      textAnchor="middle"
+                      className={styles.creamArcHeavy}
+                    >
+                      {creamArcTexts[0]}
+                    </textPath>
+                    <textPath
+                      href="#cream-title-connector-top"
+                      startOffset="50%"
+                      textAnchor="middle"
+                      className={styles.creamArcItalic}
+                    >
+                      {creamArcConnectors[0]}
+                    </textPath>
+                    <textPath
+                      href="#cream-title-arc-right"
+                      startOffset="50%"
+                      textAnchor="middle"
+                      className={styles.creamArcSerif}
+                    >
+                      {creamArcTexts[1]}
+                    </textPath>
+                    <textPath
+                      href="#cream-title-arc-bottom"
+                      startOffset="50%"
+                      textAnchor="middle"
+                      className={styles.creamArcHeavy}
+                    >
+                      {creamArcTexts[2]}
+                    </textPath>
+                    <textPath
+                      href="#cream-title-connector-bottom"
+                      startOffset="50%"
+                      textAnchor="middle"
+                      className={styles.creamArcItalic}
+                    >
+                      {creamArcConnectors[1]}
+                    </textPath>
+                    <textPath
+                      href="#cream-title-arc-left"
+                      startOffset="50%"
+                      textAnchor="middle"
+                      className={styles.creamArcPink}
+                    >
+                      {creamArcTexts[3]}
                     </textPath>
                   </text>
                 </svg>
