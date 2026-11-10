@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useState, type FormEvent } from "react";
+import { useEffect, useRef, useState, type FormEvent } from "react";
 import { sileo, Toaster } from "sileo";
 import "sileo/styles.css";
 import styles from "./page.module.css";
@@ -131,6 +131,7 @@ export default function Home() {
   const [errors, setErrors] = useState<Errors>({});
   const [validated, setValidated] = useState(false);
   const [activeSlide, setActiveSlide] = useState(0);
+  const creamArcTextRef = useRef<SVGSVGElement>(null);
 
   useEffect(() => {
     const interval = window.setInterval(() => {
@@ -141,6 +142,29 @@ export default function Home() {
     }, 3000);
 
     return () => window.clearInterval(interval);
+  }, []);
+
+  useEffect(() => {
+    const arcText = creamArcTextRef.current;
+    if (!arcText) return;
+
+    let frame = 0;
+    const updateRotation = () => {
+      frame = 0;
+      const rotation = (window.scrollY * 0.12) % 360;
+      arcText.style.setProperty("--scroll-rotation", `${rotation}deg`);
+    };
+    const handleScroll = () => {
+      if (!frame) frame = window.requestAnimationFrame(updateRotation);
+    };
+
+    updateRotation();
+    window.addEventListener("scroll", handleScroll, { passive: true });
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      if (frame) window.cancelAnimationFrame(frame);
+    };
   }, []);
 
   function update(field: Field, value: string) {
@@ -257,6 +281,7 @@ export default function Home() {
                   </svg>
                 </div>
                 <svg
+                  ref={creamArcTextRef}
                   className={styles.creamArcText}
                   viewBox="0 0 1000 1000"
                   role="img"
@@ -267,7 +292,7 @@ export default function Home() {
                     <path id="cream-title-arc-right" d="M776 224 A390 390 0 0 1 776 776" />
                     <path id="cream-title-arc-bottom" d="M224 776 A390 390 0 0 0 776 776" />
                     <path id="cream-title-arc-left" d="M224 224 A390 390 0 0 0 224 776" />
-                    <path id="cream-title-connector-top" d="M776 224 A390 390 0 0 1 890 500" />
+                    <path id="cream-title-connector-top" d="M581 119 A390 390 0 0 1 881 419" />
                     <path id="cream-title-connector-bottom" d="M139 640 A390 390 0 0 0 351 860" />
                   </defs>
                   <text className={styles.creamArcLabel}>

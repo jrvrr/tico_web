@@ -240,7 +240,7 @@
 .introPanel {
   position: relative;
   container-type: inline-size;
-  height: 2800px;
+  height: 3097px;
   margin-top: 128px;
   overflow: hidden;
   background: #fdfaf2;
@@ -350,7 +350,8 @@
   width: 70%;
   aspect-ratio: 1;
   overflow: visible;
-  transform: translateX(-50%);
+  transform: translateX(-50%) rotate(var(--scroll-rotation, 0deg));
+  transform-origin: 50% 50%;
 }
 
 .creamArcLabel {
@@ -434,7 +435,7 @@
 
 .carouselPanel {
   position: absolute;
-  top: clamp(289px, calc(36cqw + 9px), 609px);
+  top: clamp(345px, calc(36cqw + 65px), 665px);
   right: 3%;
   left: 3%;
   z-index: 3;
@@ -1199,6 +1200,10 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .creamArcText {
+    transform: translateX(-50%);
+  }
+
   .carouselSlide {
     transition: none;
   }
@@ -1454,7 +1459,7 @@
   }
 
   .introPanel {
-    height: 1560px;
+    height: 1717px;
     margin-top: 96px;
   }
 
@@ -1464,7 +1469,7 @@
   }
 
   .carouselPanel {
-    top: 365px;
+    top: 421px;
     right: 2%;
     left: 2%;
     height: clamp(320px, 76cqw, 420px);
