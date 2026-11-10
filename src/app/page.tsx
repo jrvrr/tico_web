@@ -64,7 +64,15 @@ const shapePaths = {
 } as const;
 
 type Shape = (typeof shapeRows)[number][number] | "hourglass" | "capsuleCross";
-const greenShapes = ["flower", "arch", "hourglass", "capsuleCross"] as const;
+const greenShapes = [
+  { shape: "flower", label: "Empatía" },
+  { shape: "arch", label: "Tecnología" },
+  { shape: "hourglass", label: "Evidencia" },
+  { shape: "capsuleCross", label: "Accesibilidad" },
+] as const;
+
+const creamArcTexts = ["JUGAR", "DESCUBRIR", "APRENDER", "ACOMPAÑAR"] as const;
+const creamArcConnectors = ["a", "y"] as const;
 
 const carouselSlides = [
   {
@@ -102,7 +110,7 @@ function ShapeIcon({ shape }: { shape: Shape }) {
         <rect x="1" y="1" width="98" height="98" rx="31" />
       ) : shape === "hourglass" ? (
         <>
-          <g fill="var(--outline-pink)" stroke="none">
+          <g fill="var(--value-fill)" stroke="none">
             <ellipse cx="50" cy="29" rx="49" ry="25" />
             <ellipse cx="50" cy="71" rx="49" ry="25" />
           </g>
@@ -123,7 +131,7 @@ export default function Home() {
   const [errors, setErrors] = useState<Errors>({});
   const [validated, setValidated] = useState(false);
   const [activeSlide, setActiveSlide] = useState(0);
-  const introPanelRef = useRef<HTMLElement | null>(null);
+  const creamArcTextRef = useRef<SVGSVGElement>(null);
 
   useEffect(() => {
     const interval = window.setInterval(() => {
@@ -137,34 +145,25 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
-    let frame = 0;
-    function updateRotation() {
-      const panel = introPanelRef.current;
-      if (!panel) return;
+    const arcText = creamArcTextRef.current;
+    if (!arcText) return;
 
-      cancelAnimationFrame(frame);
-      frame = requestAnimationFrame(() => {
-        const { top, height } = panel.getBoundingClientRect();
-        const progress = Math.max(
-          0,
-          Math.min(1, (window.innerHeight - top) / (window.innerHeight + height)),
-        );
-        const alignedProgress = window.innerHeight / (window.innerHeight + height);
-        const rotationProgress = Math.max(
-          0,
-          Math.min(1, (progress - alignedProgress) / (1 - alignedProgress)),
-        );
-        panel.style.setProperty("--arc-rotation", `${rotationProgress * 360}deg`);
-      });
-    }
+    let frame = 0;
+    const updateRotation = () => {
+      frame = 0;
+      const rotation = (window.scrollY * 0.12) % 360;
+      arcText.style.setProperty("--scroll-rotation", `${rotation}deg`);
+    };
+    const handleScroll = () => {
+      if (!frame) frame = window.requestAnimationFrame(updateRotation);
+    };
 
     updateRotation();
-    window.addEventListener("scroll", updateRotation, { passive: true });
-    window.addEventListener("resize", updateRotation);
+    window.addEventListener("scroll", handleScroll, { passive: true });
+
     return () => {
-      cancelAnimationFrame(frame);
-      window.removeEventListener("scroll", updateRotation);
-      window.removeEventListener("resize", updateRotation);
+      window.removeEventListener("scroll", handleScroll);
+      if (frame) window.cancelAnimationFrame(frame);
     };
   }, []);
 
@@ -260,17 +259,17 @@ export default function Home() {
             </section>
 
             <section
-              ref={introPanelRef}
               className={styles.introPanel}
               aria-labelledby="intro-title"
             >
               <h2 id="intro-title" className={styles.introTitle}>
-                Conoce el proyecto
+                Lo que nos mueve
               </h2>
-              <div className={styles.greenShapeRow} aria-hidden="true">
-                {greenShapes.map((shape) => (
-                  <span className={styles.shape} key={shape} data-shape={shape}>
+              <div className={styles.greenShapeRow} role="group" aria-label="Lo que nos mueve">
+                {greenShapes.map(({ shape, label }) => (
+                  <span className={styles.valueShape} key={shape} data-shape={shape}>
                     <ShapeIcon shape={shape} />
+                    <span className={styles.valueShapeLabel}>{label}</span>
                   </span>
                 ))}
               </div>
@@ -282,22 +281,68 @@ export default function Home() {
                   </svg>
                 </div>
                 <svg
+                  ref={creamArcTextRef}
                   className={styles.creamArcText}
                   viewBox="0 0 1000 1000"
                   role="img"
-                  aria-label="Texto decorativo que gira"
+                  aria-label="Jugar a descubrir, aprender y acompañar alrededor de Tico"
                 >
                   <defs>
-                    <path id="cream-title-arc" d="M142 500 A358 358 0 0 0 858 500" />
+                    <path id="cream-title-arc-top" d="M224 224 A390 390 0 0 1 776 224" />
+                    <path id="cream-title-arc-right" d="M776 224 A390 390 0 0 1 776 776" />
+                    <path id="cream-title-arc-bottom" d="M224 776 A390 390 0 0 0 776 776" />
+                    <path id="cream-title-arc-left" d="M224 224 A390 390 0 0 0 224 776" />
+                    <path id="cream-title-connector-top" d="M581 119 A390 390 0 0 1 881 419" />
+                    <path id="cream-title-connector-bottom" d="M139 640 A390 390 0 0 0 351 860" />
                   </defs>
                   <text className={styles.creamArcLabel}>
-                    <textPath href="#cream-title-arc" startOffset="50%" textAnchor="middle">
-                      <tspan className={styles.creamArcHeavy}>Texto 1</tspan>
-                      <tspan className={styles.creamArcItalic} dx="32">a</tspan>
-                      <tspan className={styles.creamArcSerif} dx="32">Texto 2</tspan>
-                      <tspan className={styles.creamArcItalic} dx="32">and</tspan>
-                      <tspan className={styles.creamArcHeavy} dx="32">Texto 3</tspan>
-                      <tspan className={styles.creamArcPink} dx="32">Texto 4</tspan>
+                    <textPath
+                      href="#cream-title-arc-top"
+                      startOffset="50%"
+                      textAnchor="middle"
+                      className={styles.creamArcHeavy}
+                    >
+                      {creamArcTexts[0]}
+                    </textPath>
+                    <textPath
+                      href="#cream-title-connector-top"
+                      startOffset="50%"
+                      textAnchor="middle"
+                      className={styles.creamArcItalic}
+                    >
+                      {creamArcConnectors[0]}
+                    </textPath>
+                    <textPath
+                      href="#cream-title-arc-right"
+                      startOffset="50%"
+                      textAnchor="middle"
+                      className={styles.creamArcSerif}
+                    >
+                      {creamArcTexts[1]}
+                    </textPath>
+                    <textPath
+                      href="#cream-title-arc-bottom"
+                      startOffset="50%"
+                      textAnchor="middle"
+                      className={styles.creamArcHeavy}
+                    >
+                      {creamArcTexts[2]}
+                    </textPath>
+                    <textPath
+                      href="#cream-title-connector-bottom"
+                      startOffset="50%"
+                      textAnchor="middle"
+                      className={styles.creamArcItalic}
+                    >
+                      {creamArcConnectors[1]}
+                    </textPath>
+                    <textPath
+                      href="#cream-title-arc-left"
+                      startOffset="50%"
+                      textAnchor="middle"
+                      className={styles.creamArcPink}
+                    >
+                      {creamArcTexts[3]}
                     </textPath>
                   </text>
                 </svg>
