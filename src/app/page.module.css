@@ -237,6 +237,151 @@
   stroke: var(--outline-green);
 }
 
+.impact {
+  display: grid;
+  width: min(100%, 1480px);
+  box-sizing: border-box;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: stretch;
+  gap: clamp(28px, 4vw, 60px);
+  margin: 0 auto;
+  padding: clamp(56px, 8vw, 104px) clamp(28px, 5vw, 72px) clamp(64px, 9vw, 120px);
+  background: #fdfaf2;
+}
+
+.impactTitle {
+  grid-column: 1 / -1;
+  margin: 0 auto;
+  color: var(--deep-blue);
+  font-family: var(--font-family);
+  font-size: clamp(2rem, 4.5vw, 3.5rem);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  line-height: 1.15;
+  text-align: center;
+}
+
+.impactItem {
+  display: grid;
+  width: 100%;
+  min-width: 0;
+  grid-template-rows: auto 1fr;
+  align-content: start;
+  gap: 22px;
+}
+
+.impactCopy {
+  display: grid;
+  gap: 12px;
+  padding: 0 8px;
+}
+
+.impactCopy h3 {
+  margin: 0;
+  color: rgb(41, 41, 41);
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.impactCopy p {
+  margin: 0;
+  color: #424242;
+  font-size: clamp(1.15rem, 1.6vw, 1.3rem);
+  line-height: 1.6;
+}
+
+.impactChartCard {
+  display: grid;
+  width: min(100%, 460px);
+  box-sizing: border-box;
+  justify-self: center;
+  padding: clamp(12px, 1.8vw, 20px);
+  border: 2px solid #dce8c5;
+  border-radius: 32px;
+  background:
+    radial-gradient(circle at 100% 0, rgb(203 220 157 / 42%) 0 62px, transparent 63px),
+    #fffdf8;
+  box-shadow: 0 9px 0 rgb(203 220 157 / 45%);
+}
+
+.impactItem:nth-of-type(2) .impactChartCard {
+  border-color: #f0d7df;
+  background:
+    radial-gradient(circle at 100% 0, rgb(248 140 172 / 22%) 0 62px, transparent 63px),
+    #fffaf8;
+  box-shadow: 0 9px 0 rgb(248 140 172 / 24%);
+}
+
+.impactChart {
+  display: block;
+  width: min(100%, 420px);
+  height: auto;
+  justify-self: center;
+  overflow: visible;
+}
+
+.impactChartAxis {
+  fill: none;
+  stroke: #ded8c9;
+  stroke-width: 2;
+}
+
+.impactChartAnimated rect {
+  transform-box: fill-box;
+  transform-origin: center bottom;
+  animation: impactBarRise 850ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+
+.impactChartAnimated .impactBarGreen {
+  fill: #b7cfae;
+  animation-delay: 100ms;
+}
+
+.impactChartAnimated .impactBarPink {
+  fill: #e8aab8;
+  animation-delay: 240ms;
+}
+
+.impactChartAnimated .impactBarYellow {
+  fill: #eee2b8;
+  animation-delay: 380ms;
+}
+
+.impactChartLabel {
+  fill: #414141;
+  font-family: var(--font-family);
+  font-size: 14px;
+  font-weight: 700;
+  text-anchor: middle;
+}
+
+.impactAgeValue {
+  fill: #414141;
+  font-family: var(--font-family);
+  font-size: 14px;
+  font-weight: 700;
+  text-anchor: middle;
+}
+
+.impactNote {
+  grid-column: 1 / -1;
+  margin: 0 auto;
+  color: #666;
+  font-size: 14px;
+  text-align: center;
+}
+
+@keyframes impactBarRise {
+  from {
+    transform: scaleY(0);
+  }
+
+  to {
+    transform: scaleY(1);
+  }
+}
+
 .introPanel {
   position: relative;
   container-type: inline-size;
@@ -1204,6 +1349,10 @@
     transform: translateX(-50%);
   }
 
+  .impactChart rect {
+    animation: none;
+  }
+
   .carouselSlide {
     transition: none;
   }
@@ -1220,6 +1369,10 @@
   }
 
   .tdo p {
+    font-size: clamp(17px, 2.2vw, 26px);
+  }
+
+  .impactCopy h3 {
     font-size: clamp(17px, 2.2vw, 26px);
   }
 
@@ -1456,6 +1609,41 @@
 
   .tdo p {
     font-size: 13px;
+  }
+
+  .impactCopy h3 {
+    font-size: 13px;
+  }
+
+  .impact {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 28px;
+    padding: 48px 20px 60px;
+  }
+
+  .impactTitle,
+  .impactNote {
+    grid-column: auto;
+  }
+
+  .impactItem {
+    width: min(100%, 600px);
+    justify-self: center;
+    gap: 16px;
+  }
+
+  .impactCopy {
+    padding: 0;
+  }
+
+  .impactChartCard {
+    width: min(100%, 420px);
+    padding: 12px;
+    border-radius: 26px;
+  }
+
+  .impactCopy p {
+    font-size: 1.1rem;
   }
 
   .introPanel {
