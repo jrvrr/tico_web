@@ -153,6 +153,57 @@
   transform: translateX(-50%);
 }
 
+.missionVision {
+  display: grid;
+  justify-items: center;
+  gap: clamp(24px, 4vw, 44px);
+  margin: clamp(56px, 7vw, 100px) auto 0;
+  padding: 0 16px;
+  text-align: center;
+}
+
+.missionVision h2 {
+  margin: 0;
+  color: var(--deep-blue);
+  font-size: clamp(2rem, 4.5vw, 4rem);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  line-height: 1.15;
+}
+
+.missionVisionCircles {
+  display: flex;
+  justify-content: center;
+  gap: clamp(18px, 5vw, 64px);
+}
+
+.missionVisionCircle {
+  display: grid;
+  width: clamp(128px, 25vw, 300px);
+  aspect-ratio: 1;
+  box-sizing: border-box;
+  place-items: center;
+  border: 3px solid;
+  border-radius: 50%;
+  background: transparent;
+}
+
+.missionVisionCircle h3 {
+  margin: 0;
+  font-size: clamp(1.5rem, 3.5vw, 2.6rem);
+  font-weight: 700;
+}
+
+.missionCircle {
+  border-color: var(--deep-blue);
+  color: var(--deep-blue);
+}
+
+.visionCircle {
+  border-color: var(--outline-pink);
+  color: var(--outline-pink);
+}
+
 .valueShape {
   position: relative;
   display: grid;
@@ -1172,7 +1223,7 @@
 
 .upper {
   min-height: 565px;
-  margin-top: 117px;
+  margin-top: 48px;
   padding: 53px 0 100px;
 }
 
@@ -1441,7 +1492,7 @@
 
   .upper {
     min-height: 0;
-    margin-top: clamp(65px, 5vw, 95px);
+    margin-top: 48px;
     padding: 55px 0 140px;
   }
 

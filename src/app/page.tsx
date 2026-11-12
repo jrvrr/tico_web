@@ -547,6 +547,18 @@ export default function Home() {
               </div>
             </section>
 
+            <section className={styles.missionVision} aria-labelledby="mission-vision-title">
+              <h2 id="mission-vision-title">Misión y visión</h2>
+              <div className={styles.missionVisionCircles}>
+                <div className={`${styles.missionVisionCircle} ${styles.missionCircle}`}>
+                  <h3>Misión</h3>
+                </div>
+                <div className={`${styles.missionVisionCircle} ${styles.visionCircle}`}>
+                  <h3>Visión</h3>
+                </div>
+              </div>
+            </section>
+
             <section id="proyecto" className={styles.upper} aria-labelledby="page-title">
               <h2 id="page-title" className={styles.title}>
                 Alianzas que transforman
