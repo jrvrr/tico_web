@@ -132,6 +132,7 @@ export default function Home() {
   const [validated, setValidated] = useState(false);
   const [activeSlide, setActiveSlide] = useState(0);
   const creamArcTextRef = useRef<SVGSVGElement>(null);
+  const impactSectionRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
     const interval = window.setInterval(() => {
@@ -165,6 +166,35 @@ export default function Home() {
       window.removeEventListener("scroll", handleScroll);
       if (frame) window.cancelAnimationFrame(frame);
     };
+  }, []);
+
+  useEffect(() => {
+    const impactSection = impactSectionRef.current;
+    if (!impactSection) return;
+
+    const animateCharts = () => {
+      impactSection
+        .querySelectorAll(`.${styles.impactChart}`)
+        .forEach((chart) => chart.classList.add(styles.impactChartAnimated));
+    };
+
+    if (!("IntersectionObserver" in window)) {
+      animateCharts();
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          animateCharts();
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.1 },
+    );
+
+    observer.observe(impactSection);
+    return () => observer.disconnect();
   }, []);
 
   function update(field: Field, value: string) {
@@ -256,6 +286,90 @@ export default function Home() {
                   </div>
                 ))}
               </div>
+            </section>
+
+            <section
+              ref={impactSectionRef}
+              className={styles.impact}
+              aria-labelledby="impact-title"
+            >
+              <h2 id="impact-title" className={styles.impactTitle}>
+                El impacto del TDO en México
+              </h2>
+              <article className={styles.impactItem}>
+                <div className={styles.impactCopy}>
+                  <h3>¿Cómo puede manifestarse?</h3>
+                  <p>
+                    De acuerdo con una estimación de prevalencia realizada en 2025,
+                    7.7% de los niños, niñas y adolescentes presentan dificultades
+                    de comportamiento que podrían indicar TND.
+                  </p>
+                </div>
+                <div className={styles.impactChartCard}>
+                  <svg
+                    className={styles.impactChart}
+                    viewBox="0 0 360 320"
+                    role="img"
+                    aria-label="Estimación: comunicación 0.9 por ciento, hacer amigos 3.2 por ciento y control del comportamiento 2.9 por ciento"
+                  >
+                    <path className={styles.impactChartAxis} d="M20 232 H340" />
+                    <rect className={styles.impactBarGreen} x="34" y="199" width="52" height="33" rx="20" />
+                    <rect className={styles.impactBarPink} x="154" y="114" width="52" height="118" rx="24" />
+                    <rect className={styles.impactBarYellow} x="274" y="125" width="52" height="107" rx="24" />
+                    <text className={styles.impactChartLabel} x="60" y="254" textAnchor="middle">
+                      <tspan x="60">Comunicación</tspan>
+                      <tspan x="60" dy="15">0.9%</tspan>
+                    </text>
+                    <text className={styles.impactChartLabel} x="180" y="254" textAnchor="middle">
+                      <tspan x="180">Hacer amigos</tspan>
+                      <tspan x="180" dy="15">3.2%</tspan>
+                    </text>
+                    <text className={styles.impactChartLabel} x="300" y="254" textAnchor="middle">
+                      <tspan x="300">Control del</tspan>
+                      <tspan x="300" dy="12">comportamiento</tspan>
+                      <tspan x="300" dy="12">2.9%</tspan>
+                    </text>
+                  </svg>
+                </div>
+              </article>
+              <article className={styles.impactItem}>
+                <div className={styles.impactCopy}>
+                  <h3>Edad vulnerable</h3>
+                  <p>
+                    La estimación indica una mayor proporción de señales o
+                    comportamientos correspondientes al trastorno negativista
+                    desafiante en el rango de 5 a 17 años: 8.6%.
+                  </p>
+                </div>
+                <div className={styles.impactChartCard}>
+                  <svg
+                    className={styles.impactChart}
+                    viewBox="0 0 360 320"
+                    role="img"
+                    aria-label="Estimaciones por edad: de 5 a 17 años, 8.6 por ciento; de 2 a 17 años, 7.7 por ciento; de 2 a 4 años, 3.7 por ciento"
+                  >
+                    <path className={styles.impactChartAxis} d="M20 232 H340" />
+                    <text className={styles.impactAgeValue} x="60" y="72">8.6%</text>
+                    <rect className={styles.impactBarGreen} x="34" y="88" width="52" height="144" rx="24" />
+                    <text className={styles.impactAgeValue} x="180" y="97">7.7%</text>
+                    <rect className={styles.impactBarPink} x="154" y="113" width="52" height="119" rx="24" />
+                    <text className={styles.impactAgeValue} x="300" y="164">3.7%</text>
+                    <rect className={styles.impactBarYellow} x="274" y="180" width="52" height="52" rx="24" />
+                    <text className={styles.impactChartLabel} x="60" y="254" textAnchor="middle">
+                      <tspan x="60">5–17 años</tspan>
+                    </text>
+                    <text className={styles.impactChartLabel} x="180" y="254" textAnchor="middle">
+                      <tspan x="180">2–17 años</tspan>
+                    </text>
+                    <text className={styles.impactChartLabel} x="300" y="254" textAnchor="middle">
+                      <tspan x="300">2–4 años</tspan>
+                    </text>
+                  </svg>
+                </div>
+              </article>
+              <p className={styles.impactNote}>
+                Cifras presentadas según la estimación de prevalencia de 2025.
+              </p>
             </section>
 
             <section
@@ -429,6 +543,18 @@ export default function Home() {
                       ))}
                     </div>
                   </div>
+                </div>
+              </div>
+            </section>
+
+            <section className={styles.missionVision} aria-labelledby="mission-vision-title">
+              <h2 id="mission-vision-title">Misión y visión</h2>
+              <div className={styles.missionVisionCircles}>
+                <div className={`${styles.missionVisionCircle} ${styles.missionCircle}`}>
+                  <h3>Misión</h3>
+                </div>
+                <div className={`${styles.missionVisionCircle} ${styles.visionCircle}`}>
+                  <h3>Visión</h3>
                 </div>
               </div>
             </section>
