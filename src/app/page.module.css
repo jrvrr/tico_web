@@ -9,8 +9,8 @@
   --outline-yellow: #c49000;
   --outline-green: #53895c;
   --fond: #f9f1da;
-  --shape-size: clamp(52px, 13vw, 72px);
-  --shape-gap: clamp(8px, 2.4vw, 13px);
+  --shape-size: clamp(38px, 13vw, 72px);
+  --shape-gap: clamp(14px, 4vw, 30px);
   display: flex;
   min-height: 100vh;
   flex-direction: column;
@@ -122,8 +122,9 @@
 
 .shapeGrid {
   display: flex;
+  width: min(100%, 1060px);
   flex-direction: column;
-  gap: clamp(9px, 2.4vw, 13px);
+  gap: clamp(28px, 7vw, 44px);
   margin: 28px auto 0;
 }
 
@@ -158,7 +159,7 @@
   justify-items: center;
   gap: clamp(24px, 4vw, 44px);
   margin: clamp(56px, 7vw, 100px) auto 0;
-  padding: 0 16px;
+  padding: 0 16px clamp(48px, 6vw, 80px);
   text-align: center;
 }
 
@@ -172,18 +173,21 @@
 }
 
 .missionVisionCircles {
-  display: flex;
+  display: grid;
+  width: min(100%, 1120px);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   justify-content: center;
-  gap: clamp(18px, 5vw, 64px);
+  justify-items: center;
+  gap: clamp(16px, 5vw, 80px);
 }
 
 .missionVisionCircle {
   display: grid;
-  width: clamp(128px, 25vw, 300px);
+  width: min(100%, 460px);
   aspect-ratio: 1;
   box-sizing: border-box;
   place-items: center;
-  border: 3px solid;
+  border: 36px solid;
   border-radius: 50%;
   background: transparent;
 }
@@ -195,8 +199,8 @@
 }
 
 .missionCircle {
-  border-color: var(--deep-blue);
-  color: var(--deep-blue);
+  border-color: #ffbf2f;
+  color: #ffbf2f;
 }
 
 .visionCircle {
@@ -262,41 +266,46 @@
   overflow: visible;
   width: 100%;
   height: 100%;
-  fill: #d8d8d8;
+  fill: #dceafa;
   stroke: var(--outline-blue);
-  stroke-width: 1.1;
+  stroke-width: 1.8;
   stroke-linejoin: round;
 }
 
 .shape[data-shape="circle"] svg {
+  fill: #fbe0e9;
   stroke: var(--outline-pink);
 }
 
 .shape[data-shape="arch"] svg {
+  fill: #fff0bf;
   stroke: var(--outline-yellow);
 }
 
 .shape[data-shape="hourglass"] svg {
+  fill: #fbe0e9;
   stroke: var(--outline-pink);
 }
 
 .shape[data-shape="capsuleCross"] svg {
+  fill: #e2eedf;
   stroke: var(--outline-green);
 }
 
 .shape[data-shape="square"] svg {
+  fill: #e2eedf;
   stroke: var(--outline-green);
 }
 
 .impact {
   display: grid;
-  width: min(100%, 1480px);
+  width: min(100%, 1280px);
   box-sizing: border-box;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   align-items: stretch;
-  gap: clamp(28px, 4vw, 60px);
+  gap: clamp(20px, 2vw, 32px);
   margin: 0 auto;
-  padding: clamp(56px, 8vw, 104px) clamp(28px, 5vw, 72px) clamp(64px, 9vw, 120px);
+  padding: clamp(56px, 8vw, 104px) clamp(24px, 3vw, 48px) clamp(64px, 9vw, 120px);
   background: #fdfaf2;
 }
 
@@ -350,17 +359,13 @@
   padding: clamp(12px, 1.8vw, 20px);
   border: 2px solid #dce8c5;
   border-radius: 32px;
-  background:
-    radial-gradient(circle at 100% 0, rgb(203 220 157 / 42%) 0 62px, transparent 63px),
-    #fffdf8;
+  background: #fffdf8;
   box-shadow: 0 9px 0 rgb(203 220 157 / 45%);
 }
 
 .impactItem:nth-of-type(2) .impactChartCard {
   border-color: #f0d7df;
-  background:
-    radial-gradient(circle at 100% 0, rgb(248 140 172 / 22%) 0 62px, transparent 63px),
-    #fffaf8;
+  background: #fffaf8;
   box-shadow: 0 9px 0 rgb(248 140 172 / 24%);
 }
 
@@ -539,11 +544,11 @@
 
 .creamArcText {
   position: absolute;
-  top: -45cqw;
+  top: -48cqw;
   left: 50%;
   z-index: 2;
   display: block;
-  width: 70%;
+  width: 62%;
   aspect-ratio: 1;
   overflow: visible;
   transform: translateX(-50%) rotate(var(--scroll-rotation, 0deg));
@@ -1411,8 +1416,8 @@
 
 @media (min-width: 701px) {
   .page {
-    --shape-size: clamp(88px, 13.5vw, 180px);
-    --shape-gap: clamp(18px, 2.6vw, 34px);
+    --shape-size: clamp(88px, 12.5vw, 180px);
+    --shape-gap: clamp(26px, 3.8vw, 52px);
   }
 
   .tdo {
@@ -1428,13 +1433,13 @@
   }
 
   .shapeGrid {
-    max-width: 1060px;
-    gap: clamp(18px, 2.6vw, 34px);
+    max-width: 1120px;
+    gap: clamp(42px, 5.4vw, 76px);
     margin-top: clamp(40px, 4.8vw, 72px);
   }
 
   .shapeRow {
-    gap: clamp(18px, 2.6vw, 34px);
+    gap: var(--shape-gap);
   }
 
 }
@@ -1668,7 +1673,7 @@
 
   .impact {
     grid-template-columns: minmax(0, 1fr);
-    gap: 28px;
+    gap: 20px;
     padding: 48px 20px 60px;
   }
 
