@@ -131,6 +131,7 @@ export default function Home() {
   const [errors, setErrors] = useState<Errors>({});
   const [validated, setValidated] = useState(false);
   const [activeSlide, setActiveSlide] = useState(0);
+  const [flippedCards, setFlippedCards] = useState({ mission: false, vision: false });
   const creamArcTextRef = useRef<SVGSVGElement>(null);
   const impactSectionRef = useRef<HTMLElement>(null);
 
@@ -550,12 +551,54 @@ export default function Home() {
             <section className={styles.missionVision} aria-labelledby="mission-vision-title">
               <h2 id="mission-vision-title">Misión y visión</h2>
               <div className={styles.missionVisionCircles}>
-                <div className={`${styles.missionVisionCircle} ${styles.missionCircle}`}>
-                  <h3>Misión</h3>
-                </div>
-                <div className={`${styles.missionVisionCircle} ${styles.visionCircle}`}>
-                  <h3>Visión</h3>
-                </div>
+                <button
+                  type="button"
+                  className={`${styles.missionVisionCircle} ${styles.missionCircle}`}
+                  aria-label={flippedCards.mission ? "Volver a mostrar Misión" : "Descubrir la Misión"}
+                  aria-pressed={flippedCards.mission}
+                  onClick={() =>
+                    setFlippedCards((current) => ({ ...current, mission: !current.mission }))
+                  }
+                >
+                  <span
+                    className={`${styles.missionVisionCard} ${
+                      flippedCards.mission ? styles.missionVisionCardFlipped : ""
+                    }`}
+                  >
+                    <span className={`${styles.missionVisionFace} ${styles.missionVisionFront}`} aria-hidden={flippedCards.mission}>
+                      <span className={styles.missionVisionLabel}>Misión</span>
+                    </span>
+                    <span className={`${styles.missionVisionFace} ${styles.missionVisionBack}`} aria-hidden={!flippedCards.mission}>
+                      <span>
+                        Acompañar el desarrollo de niñas y niños mediante el juego, la creatividad y experiencias accesibles.
+                      </span>
+                    </span>
+                  </span>
+                </button>
+                <button
+                  type="button"
+                  className={`${styles.missionVisionCircle} ${styles.visionCircle}`}
+                  aria-label={flippedCards.vision ? "Volver a mostrar Visión" : "Descubrir la Visión"}
+                  aria-pressed={flippedCards.vision}
+                  onClick={() =>
+                    setFlippedCards((current) => ({ ...current, vision: !current.vision }))
+                  }
+                >
+                  <span
+                    className={`${styles.missionVisionCard} ${
+                      flippedCards.vision ? styles.missionVisionCardFlipped : ""
+                    }`}
+                  >
+                    <span className={`${styles.missionVisionFace} ${styles.missionVisionFront}`} aria-hidden={flippedCards.vision}>
+                      <span className={styles.missionVisionLabel}>Visión</span>
+                    </span>
+                    <span className={`${styles.missionVisionFace} ${styles.missionVisionBack}`} aria-hidden={!flippedCards.vision}>
+                      <span>
+                        Ser un referente en experiencias inclusivas que potencien el aprendizaje y bienestar de cada niña y niño.
+                      </span>
+                    </span>
+                  </span>
+                </button>
               </div>
             </section>
 

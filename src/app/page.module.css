@@ -182,30 +182,94 @@
 }
 
 .missionVisionCircle {
-  display: grid;
+  display: block;
   width: min(100%, 460px);
   aspect-ratio: 1;
+  padding: 0;
   box-sizing: border-box;
-  place-items: center;
-  border: 36px solid;
   border-radius: 50%;
-  background: transparent;
+  background: none;
+  cursor: pointer;
+  color: inherit;
+  font: inherit;
+  perspective: 1200px;
 }
 
-.missionVisionCircle h3 {
-  margin: 0;
+.missionVisionCircle:focus-visible {
+  outline: 4px solid var(--deep-blue);
+  outline-offset: 6px;
+}
+
+.missionVisionCard {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  transform-style: preserve-3d;
+  transition: transform 650ms cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+.missionVisionCardFlipped {
+  transform: rotateY(180deg);
+}
+
+.missionVisionFace {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+.missionVisionFront {
+  border: 36px solid;
+  background: #fdfaf2;
+}
+
+.missionVisionLabel {
   font-size: clamp(1.5rem, 3.5vw, 2.6rem);
   font-weight: 700;
 }
 
+.missionVisionBack {
+  padding: clamp(30px, 6vw, 72px);
+  box-sizing: border-box;
+  font-size: clamp(1rem, 2vw, 1.45rem);
+  font-weight: 600;
+  line-height: 1.45;
+  text-wrap: pretty;
+  transform: rotateY(180deg);
+}
+
 .missionCircle {
+  color: #ffbf2f;
+}
+
+.missionCircle .missionVisionFront {
   border-color: #ffbf2f;
   color: #ffbf2f;
 }
 
+.missionCircle .missionVisionBack {
+  background: #fff0bf;
+  color: #513c00;
+}
+
 .visionCircle {
+  color: var(--outline-pink);
+}
+
+.visionCircle .missionVisionFront {
   border-color: var(--outline-pink);
   color: var(--outline-pink);
+}
+
+.visionCircle .missionVisionBack {
+  background: #f7d8e4;
+  color: #522139;
 }
 
 .valueShape {
@@ -1412,6 +1476,10 @@
   .carouselSlide {
     transition: none;
   }
+
+  .missionVisionCard {
+    transition: none;
+  }
 }
 
 @media (min-width: 701px) {
@@ -1744,11 +1812,19 @@
 
   .missionVisionCircle {
     width: min(100%, 240px);
+  }
+
+  .missionVisionFront {
     border-width: 18px;
   }
 
-  .missionVisionCircle h3 {
+  .missionVisionLabel {
     font-size: clamp(1.2rem, 7vw, 2rem);
+  }
+
+  .missionVisionBack {
+    padding: 26px;
+    font-size: clamp(0.82rem, 4vw, 1rem);
   }
 
   .introPanel {
@@ -1764,7 +1840,12 @@
 
   .creamPiece {
     top: calc(50vw + 150px);
+    bottom: 65px;
     width: calc(100% - 28px);
+  }
+
+  .creamTwinPiece {
+    top: 12px;
   }
 
   .creamArcLabel {
@@ -1772,7 +1853,7 @@
   }
 
   .creamCopy {
-    top: calc(18cqw + 8px);
+    top: calc(42cqw + 8px);
     width: min(76%, 430px);
     gap: 12px;
     font-size: 13px;
@@ -1785,7 +1866,7 @@
   }
 
   .carouselPanel {
-    top: 230px;
+    top: 370px;
     right: 2%;
     left: 2%;
     height: clamp(300px, 76cqw, 360px);
@@ -1933,12 +2014,12 @@
   }
 
   .creamArcText {
-    top: -60cqw;
-    width: 80%;
+    top: -50cqw;
+    width: 100%;
   }
 
   .creamArcLabel {
-    font-size: 48px;
+    font-size: 60px;
   }
 
   .creamArcSerif {
@@ -1947,7 +2028,7 @@
   }
 
   .creamArcItalic {
-    font-size: 36px;
+    font-size: 52px;
     font-weight: 400;
   }
 
@@ -1956,6 +2037,6 @@
   }
 
   .carouselPanel {
-    top: 258px;
+    top: 390px;
   }
 }
